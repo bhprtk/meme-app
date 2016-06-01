@@ -26,10 +26,10 @@
         </div>
 
         <div>
-          <button title="Upvote" class="btn btn-default fa-thumbs" ng-click="upvote(image)">
+          <button title="Upvote" class="btn btn-default fa-thumbs" ng-click="upvote(image, $index)">
             <i class="fa fa-thumbs-o-up fa-2x" ng-class="upvoteClass"></i>
           </button>
-          <button title="Downvote" class="btn btn-default fa-thumbs" ng-click="downvote(image)">
+          <button title="Downvote" class="btn btn-default fa-thumbs" ng-click="downvote(image, $index)">
             <i class="fa fa-thumbs-o-down fa-2x" ng-class="downvoteClass"></i>
           </button>
 

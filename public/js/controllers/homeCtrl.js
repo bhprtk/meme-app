@@ -8,11 +8,42 @@ app.controller('homeCtrl', function($scope, images, Images, $sessionStorage, Use
   $scope.points = 0;
   $scope.images = images.reverse();
 
-  $scope.upvote = function(image) {
 
-    if(!$scope.upvoteClass) {
+  function addPoints(image, imagesIndex) {
+    Images.upvoteById(image._id)
+    .then((updatedImage) => {
+      Users.addUpvoteToUser(updatedImage._id, $sessionStorage.currentUser._id)
+      .then((updatedUser) => {
+        $scope.images[imagesIndex].points = updatedImage.data.points;
+      })
+    });
+
+  };
+
+  function subtractPoints(image, imagesIndex) {
+    Images.downvoteById(image._id)
+    .then((updatedImage) => {
+      Users.addDownvoteToUser(updatedImage._id, $sessionStorage.currentUser._id)
+      .then((updatedUser) => {
+        $scope.images[imagesIndex].points = updatedImage.data.points;
+      })
+    });
+
+
+  };
+
+  $scope.upvote = function(image, imagesIndex) {
+
+    if(!$scope.upvoteClass && !$scope.downvoteClass) {
+      addPoints(image, imagesIndex);
       $scope.upvoteClass = "turn-blue";
+      $scope.downvoteClass = null;
+    } else if(!$scope.upvoteClass && $scope.downvoteClass) {
+      addPoints(image, imagesIndex);
+      $scope.downvoteClass = null;
+
     } else {
+      subtractPoints(image, imagesIndex);
       $scope.upvoteClass = null;
     }
 
@@ -21,13 +52,19 @@ app.controller('homeCtrl', function($scope, images, Images, $sessionStorage, Use
 
 };
 
-  $scope.downvote = function(image) {
-    console.log('downvoted');
+  $scope.downvote = function(image, imagesIndex) {
 
-
-    if(!$scope.downvoteClass) {
+    if(!$scope.downvoteClass  && !$scope.upvoteClass) {
+      subtractPoints(image, imagesIndex);
       $scope.downvoteClass = "turn-red";
+      $scope.upvoteClass = null;
+
+    } else if(!$scope.downvoteClass && $scope.upvoteClass) {
+      subtractPoints(image, imagesIndex);
+      $scope.upvoteClass = null;
+
     } else {
+      addPoints(image, imagesIndex);
       $scope.downvoteClass = null;
     }
 
