@@ -12,9 +12,13 @@ app.controller('homeCtrl', function($scope, images, Images, $sessionStorage, Use
   function addPoints(image, imagesIndex) {
     Images.upvoteById(image._id)
     .then((updatedImage) => {
-      Users.addUpvoteToUser(updatedImage._id, $sessionStorage.currentUser._id)
-      .then((updatedUser) => {
-        $scope.images[imagesIndex].points = updatedImage.data.points;
+      Users.addUpvoteToUser(updatedImage.data._id, $sessionStorage.currentUser._id)
+      .then(() => {
+        Users.removeFromDisliked(updatedImage.data._id, $sessionStorage.currentUser._id)
+        .then((updatedUser) => {
+          $scope.images[imagesIndex].points = updatedImage.data.points;
+        })
+
       })
     });
 
@@ -23,10 +27,14 @@ app.controller('homeCtrl', function($scope, images, Images, $sessionStorage, Use
   function subtractPoints(image, imagesIndex) {
     Images.downvoteById(image._id)
     .then((updatedImage) => {
-      Users.addDownvoteToUser(updatedImage._id, $sessionStorage.currentUser._id)
-      .then((updatedUser) => {
-        $scope.images[imagesIndex].points = updatedImage.data.points;
-      })
+      Users.addDownvoteToUser(updatedImage.data._id, $sessionStorage.currentUser._id)
+        .then(() => {
+          Users.removeFromLiked(updatedImage.data._id, $sessionStorage.currentUser._id)
+          .then((updatedUser) => {
+            $scope.images[imagesIndex].points = updatedImage.data.points;
+          })
+
+        })
     });
 
 
