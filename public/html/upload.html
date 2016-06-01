@@ -1,0 +1,97 @@
+<!-- <img ngf-thumbnail="file"> -->
+
+<div style="margin-top: 30px;"></div>
+
+<div class="row" ng-hide="file">
+
+  <div class="col-md-2 col-xs-2"></div>
+
+  <div class="col-md-8 col-xs-8">
+
+    <md-card class="drop-box upload-image"
+      role="button"
+      ng-model="file"
+      name="file"
+      ngf-select
+      ngf-drop
+      ngf-pattern="'image/*'"
+      ngf-accept="'image/*'"
+      ngf-max-size="20MB">
+      <i class="fa fa-cloud-upload fa-upload">
+        <span style="font-size: 18px;"><p>Select or drag an image here</p></span>
+      </i>
+    </md-card>
+
+  <hr>
+
+    <md-card class="register-card upload-image" ng-show="addUrl">
+      <form>
+        <md-input-container class="form-input" role="button">
+          <label>Image Url</label>
+          <input type="text" ng-model="file" required>
+        </md-input-container>
+        <button class="btn btn-success">Upload</button>
+      </form>
+    </md-card>
+
+    <md-card style="padding-top: 20px;" class="register-card upload-image" ng-click="addUrl=true" ng-hide="addUrl">
+        <md-input-container role="button">
+          <i class="fa fa-globe fa-upload">
+            <span style="font-size: 18px;"><p>Or add an image url</p></span>
+          </i>
+        </md-input-container>
+    </md-card>
+
+
+  </div>
+
+</div>
+
+
+
+
+<div class="row" ng-show="file">
+
+
+  <div class="col-md-2 com-xs-2"></div>
+  <div class="col-md-8 col-xs-8">
+
+      <md-card>
+
+        <md-card-header ng-hide="uploadImage.displayTitle">
+
+          <md-input-container class="form-input">
+            <form ng-submit="submitTitle()">
+              <label>Add a title</label>
+              <input type="text" ng-model="uploadImage.title" required>
+
+            </form>
+          </md-input-container>
+
+      </md-card-header>
+
+        <md-card-header ng-show="uploadImage.displayTitle" layout="row" layout-align="space-between center">
+
+
+
+              <strong>{{uploadImage.displayTitle}}</strong>
+              <span title="Edit" role="button" ng-click="uploadImage.displayTitle=null">
+                <i class="fa fa-pencil-square-o fa-2x"></i>
+              </span>
+
+
+      </md-card-header>
+
+        <img class="md-card-image" ngf-src="file">
+
+        <md-card-footer ng-show="showFooter" layout="row" layout-align="space-around center">
+          <button class="btn btn-danger footer-btn" style="margin-right: 10px;" ng-click="cancelPost()"><h4>Cancel</h4></button>
+          <button class="btn btn-info footer-btn" ng-click="upload()"><h4>Post</h4></button>
+        </md-card-footer>
+
+      </md-card>
+
+
+  </div>
+
+</div>

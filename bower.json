@@ -1,0 +1,26 @@
+{
+  "name": "meme-app",
+  "description": "",
+  "main": "",
+  "authors": [
+    "pratik <lazy.monk.13@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "angular-material": "^1.0.9",
+    "ngstorage": "^0.3.10",
+    "angular-ui-router": "^0.3.0",
+    "bootstrap-social": "^5.0.0",
+    "satellizer": "^0.14.0",
+    "ng-file-upload": "^12.0.4"
+  }
+}

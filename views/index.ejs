@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Meme App</title>
+
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bower_components/bootstrap-social/bootstrap-social.css">
+    <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Stalemate' rel='stylesheet' type='text/css'>
+
+    <link rel='stylesheet' href='/css/animate.css'>
+    <link rel='stylesheet' href='/css/style.css'>
+
+    <script src="/bower_components/angular/angular.js"></script>
+    <script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="/bower_components/angular-aria/angular-aria.js"></script>
+    <script src="/bower_components/angular-animate/angular-animate.js"></script>
+    <script src="/bower_components/angular-material/angular-material.js"></script>
+    <script src="/bower_components/angular-messages/angular-messages.min.js"></script>
+
+    <script src="/bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script>
+    <script src="/bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script src="/bower_components/satellizer/satellizer.min.js"></script>
+    <script src="/bower_components/ngstorage/ngStorage.min.js"></script>
+
+    <script src="/js/module.js"></script>
+    <script src="/js/services.js"></script>
+
+    <script src="/js/controllers/registerCtrl.js"></script>
+    <script src="/js/controllers/loginCtrl.js"></script>
+    <script src="/js/controllers/mainCtrl.js"></script>
+    <script src="/js/controllers/uploadCtrl.js"></script>
+    <script src="/js/controllers/homeCtrl.js"></script>
+
+  </head>
+  <body ng-app="memeApp" ng-controller="mainCtrl">
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <a class="navbar-brand" ui-sref="home"><strong>Ecstasy</strong></a>
+
+        <ul class="nav navbar-nav navbar-right" ng-if="!isAuthenticated()">
+          <li><a ui-sref="login">Sign in</a></li>
+          <li><a ui-sref="register">Sign up</a></li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right" ng-if="isAuthenticated()">
+          <li><a>hi {{$storage.currentUser.displayName}}</a></li>
+          <li><a role="button" ng-click="logout()">Log out</a></li>
+          <li><button class="btn btn-success" style="margin-top: 10px;" ui-sref="upload">Upload</button></li>
+        </ul>
+
+
+      </div>
+    </nav>
+
+
+
+    <div class="container ui-view-display">
+      <ui-view> </ui-view>
+    </div>
+
+
+  </body>
+</html>

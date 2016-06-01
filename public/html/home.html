@@ -1,0 +1,42 @@
+<div style="margin-top: 30px;"></div>
+
+<div class="col-md-2 col-xs-2"></div>
+
+<div class="col-md-8 col-xs-8">
+
+  <md-card ng-repeat="image in images">
+
+    <md-card-header>
+
+      <strong>{{image.displayTitle}}</strong>
+
+  </md-card-header>
+
+    <img ng-src="{{image.url}}" class="md-card-image">
+
+
+    <md-card-footer layout="row" layout-align="space-between center">
+
+
+        <div>
+          <span ng-hide="image.points===1">{{image.points}} points</span>
+          <span ng-show="image.points===1">{{image.points}} point</span>
+          <span ng-show="image.points===0"><small><i>(be the first person to vote)</i></small></span>
+
+        </div>
+
+        <div>
+          <button title="Upvote" class="btn btn-default fa-thumbs upvote" ng-click="upvote(image)">
+            <i class="fa fa-thumbs-o-up fa-2x"></i>
+          </button>
+          <button title="Downvote" class="btn btn-default fa-thumbs downvote" ng-click="downvote(image)">
+            <i class="fa fa-thumbs-o-down fa-2x"></i>
+          </button>
+
+        </div>
+
+    </md-card-footer>
+
+  </md-card>
+
+</div>

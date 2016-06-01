@@ -1,0 +1,60 @@
+<div style="padding-top: 70px;">
+
+</div>
+
+<div class="row">
+  <div class="col-md-3 col-xs-3"></div>
+  <div class="col-md-6 col-xs-6 alert alert-danger alert-dismissible" ng-show="showAlert">
+    <a type="button" class="close" ng-click="dismissAlert()"><span style="color: #a94442;">&times;</span></a>
+    {{error}}
+  </div>
+
+  <div class="col-md-6 col-xs-6 alert alert-success alert-dismissible" ng-show="showSuccess">
+    <a type="button" class="close" ui-sref='login'><span style="color: #3c763d;">&#10003;</span></a>
+    Your email has been registered successfully. Please <span><a style="color: #a94442;" ui-sref='login'>login</a></span> to continue.
+  </div>
+
+</div>
+
+<div class="row">
+
+  <div class="col-md-3 col-xs-3"></div>
+
+  <div class="col-md-6 col-xs-6">
+  <md-card class="register-card">
+
+    <form ng-submit="register()" name="registerForm">
+
+      <h3>Sign Up</h3>
+
+      <md-input-container class="form-input">
+        <label>Email</label>
+        <input type="email" ng-model="newUser.email" name="email" required>
+      </md-input-container>
+
+
+      <md-input-container class="form-input">
+        <label>Display Name</label>
+        <input type="text" ng-model="newUser.displayName" required>
+      </md-input-container>
+
+      <md-input-container class="form-input">
+        <label>Password</label>
+        <input type="password" ng-model="newUser.password" required>
+      </md-input-container>
+
+      <md-input-container class="form-input">
+        <label>Retype Password</label>
+        <input type="password" ng-model="newUser.password2" required>
+      </md-input-container>
+      <br>
+      <br>
+      <button type="submit" class="btn btn-success btn-block btn-social"><span class="fa fa-envelope-o"></span>Sign up with Email</button>
+    </form>
+
+
+  </md-card>
+
+</div>
+
+</div>

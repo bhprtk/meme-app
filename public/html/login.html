@@ -1,0 +1,74 @@
+<div style="padding-top: 70px;">
+
+</div>
+
+<div class="row">
+  <div class="col-md-3 col-xs-3"></div>
+  <div class="col-md-6 col-xs-6 alert alert-danger alert-dismissible" ng-show="showAlert">
+    <a type="button" class="close" ng-click="dismissAlert()"><span style="color: #a94442;">&times;</span></a>
+    {{error}}
+  </div>
+
+  <div class="col-md-6 col-xs-6 alert alert-success alert-dismissible" ng-show="showSuccess">
+    <a type="button" class="close" ui-sref='login'><span style="color: #3c763d;">&#10003;</span></a>
+    Your email has been registered successfully. Please <span><a style="color: #a94442;" ui-sref='login'>login</a></span> to continue.
+  </div>
+
+</div>
+
+<div class="row">
+
+  <div class="col-md-2 col-xs-2"></div>
+
+  <div class="col-md-8 col-xs-8">
+    <md-card class="register-card">
+    <md-grid-list md-cols="2" md-row-height="6:6">
+
+
+
+          <md-grid-tile md-colspan="1">
+            <form ng-submit="login()">
+              <h3>Sign In</h3>
+              <md-input-container class="form-input">
+                <label>Email</label>
+                <input type="email" ng-model="loginUser.email" name="email" required>
+              </md-input-container>
+              <md-input-container class="form-input">
+                <label>Password</label>
+                <input type="password" ng-model="loginUser.password" required>
+              </md-input-container>
+              <br>
+              <br>
+              <button type="submit" class="btn btn-success btn-block btn-social"><span class="fa fa-envelope-o"></span>Sign in with Email</button>
+            </form>
+
+          </md-grid-tile>
+
+          <md-grid-tile>
+
+            <ul>
+              <li class="social-li">
+                <button class="btn btn-facebook btn-block btn-social" ng-click="authenticate('facebook')"><span class="fa fa-facebook"></span>Sign in with Facebook</button>
+
+              </li>
+              <li class="social-li">
+                <button class="btn btn-github btn-block btn-social" ng-click="authenticate('github')"><span class="fa fa-github"></span>Sign in with GitHub</button>
+
+              </li>
+
+            </ul>
+
+
+
+          </md-grid-tile>
+
+
+        </md-grid-list>
+
+
+      </md-card>
+
+
+</div>
+
+</div>
