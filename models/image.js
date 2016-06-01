@@ -21,6 +21,20 @@ let imageSchema = new mongoose.Schema({
 );
 
 
+imageSchema.statics.uploadImageWithUrl = function(imageInfo, cb) {
+  console.log('imageInfo', imageInfo);
+
+  Image.create({
+    url: imageInfo.newFile,
+    name: imageInfo.displayTitle,
+    displayTitle: imageInfo.displayTitle
+  }, cb);
+
+
+
+};
+
+
 imageSchema.statics.upvoteById = function(postId, cb) {
   Image.findById(postId, (err, dbImage) => {
     if(err) cb(err);
@@ -46,10 +60,10 @@ imageSchema.statics.downvoteById = function(postId, cb) {
 
 
 imageSchema.statics.upload = (file, imageInfo, cb) => {
-  console.log('file in upload method', file);
   if(!file.mimetype.match(/image/)) {
-    return cb({error: 'File must be image.'});
-    
+    console.log('imageInfo', imageInfo);
+    // return cb({error: 'File must be image.'});
+
   }
 
   let filenameParts = file.originalname.split('.');

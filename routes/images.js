@@ -21,11 +21,20 @@ router.get('/getAll', (req, res) => {
 
 
 router.post('/', upload.single('newFile'), (req, res) => {
-  console.log('req.file in post image', req.file);
-  console.log('req.body in post image', req.body);
-  Image.upload(req.file, req.body, (err, image) => {
-    res.status(err ? 400 : 200).send(err || image);
-  });
+  var imageObj = req.file;
+  var imageInfoObj = req.body;
+
+  if(imageObj) {
+    Image.upload(imageObj, imageInfoObj, (err, image) => {
+      res.status(err ? 400 : 200).send(err || image);
+    });
+  } else if(imageInfoObj) {
+    Image.uploadImageWithUrl(imageInfoObj, (err, image) => {
+      console.log('image after upload', image);
+      res.status(err ? 400 : 200).send(err || image);
+    });
+  }
+
 });
 
 router.put('/upvoteById/:postId', (req, res) => {

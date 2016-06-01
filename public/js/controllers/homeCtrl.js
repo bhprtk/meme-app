@@ -4,6 +4,8 @@ var app = angular.module('memeApp');
 
 app.controller('homeCtrl', function($scope, images, Images) {
 
+  console.log('images in homeCtrl', images[0].url);
+
   $scope.points = 0;
   $scope.images = images.reverse();
   var upvoted = false;
