@@ -4,7 +4,7 @@
 
 <div class="col-md-7 col-xs-7">
 
-  <md-card ng-repeat="image in images" style="margin-bottom:50px;">
+  <md-card ng-repeat="image in images" class="image-card">
 
     <md-card-header>
 
@@ -26,11 +26,11 @@
         </div>
 
         <div>
-          <button title="Upvote" class="btn btn-default fa-thumbs upvote" ng-click="upvote(image)">
-            <i class="fa fa-thumbs-o-up fa-2x"></i>
+          <button title="Upvote" class="btn btn-default fa-thumbs" ng-click="upvote(image)">
+            <i class="fa fa-thumbs-o-up fa-2x" ng-class="upvoteClass"></i>
           </button>
-          <button title="Downvote" class="btn btn-default fa-thumbs downvote" ng-click="downvote(image)">
-            <i class="fa fa-thumbs-o-down fa-2x"></i>
+          <button title="Downvote" class="btn btn-default fa-thumbs" ng-click="downvote(image)">
+            <i class="fa fa-thumbs-o-down fa-2x" ng-class="downvoteClass"></i>
           </button>
 
         </div>

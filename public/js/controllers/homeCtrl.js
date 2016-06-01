@@ -2,49 +2,35 @@
 
 var app = angular.module('memeApp');
 
-app.controller('homeCtrl', function($scope, images, Images) {
+app.controller('homeCtrl', function($scope, images, Images, $sessionStorage, Users) {
 
-  console.log('images in homeCtrl', images[0].url);
 
   $scope.points = 0;
   $scope.images = images.reverse();
-  var upvoted = false;
-  var downvoted = false;
 
   $scope.upvote = function(image) {
 
-    Images.upvoteById(image._id)
-      .then(res => {
-        image.points = res.data.points;
-      })
-      .catch(err => {
-        console.log('error after upvote', err);
-      })
-    // if(!upvoted) {
-    //   // $scope.points++;
-    //   // upvoted = true;
-    //   // downvoted = false;
-    //   // var upvote = angular.element( document.querySelector( '.upvote' ) );
-    //   // upvote.removeClass('btn-default');
-    //   // upvote.addClass('btn-success');
-    // }
+    if(!$scope.upvoteClass) {
+      $scope.upvoteClass = "turn-blue";
+    } else {
+      $scope.upvoteClass = null;
+    }
 
-  };
+
+
+
+};
 
   $scope.downvote = function(image) {
+    console.log('downvoted');
 
-    Images.downvoteById(image._id)
-      .then(res => {
-        image.points = res.data.points;
-      })
-      .catch(err => {
-        console.log('error after downvote', err);
-      })
-    // if(!downvoted) {
-    //   $scope.points--;
-    //   downvoted = true;
-    //   upvoted = false;
-    // }
+
+    if(!$scope.downvoteClass) {
+      $scope.downvoteClass = "turn-red";
+    } else {
+      $scope.downvoteClass = null;
+    }
+
 
   };
 

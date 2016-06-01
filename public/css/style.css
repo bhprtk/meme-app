@@ -57,3 +57,28 @@ body {
 .dragover {
   background: #000;
 }
+
+.nav-buttons {
+  margin-left: 10px;
+}
+
+.active {
+  background: $button-active;
+}
+.disabled {
+  background: #eee;
+  color: #aaa;
+}
+
+.turn-red {
+  color: #ff6666;
+}
+
+.turn-blue {
+  color: #5b965b;
+}
+
+.image-card {
+  margin-bottom: 50px;
+  background: white;
+}
