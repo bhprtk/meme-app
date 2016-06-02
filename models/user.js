@@ -27,9 +27,6 @@ var userSchema = new mongoose.Schema({
 
 userSchema.statics.addLikedPost = function(userId, imageId, cb) {
 
-  console.log('userId', userId);
-  console.log('imageId', imageId);
-
   User.findById(userId, (err, dbUser) => {
     if(err) cb(err);
 
@@ -55,9 +52,6 @@ userSchema.statics.removeFromLiked = function(userId, imageId, cb) {
   User.findById(userId, (err, dbUser) => {
     if(err) cb(err);
 
-    console.log('dbUser', dbUser);
-    console.log('imageId', imageId);
-
     var index = dbUser.liked.indexOf(imageId);
 
     if(index >= 0) {
@@ -68,7 +62,7 @@ userSchema.statics.removeFromLiked = function(userId, imageId, cb) {
       });
 
     } else {
-      cb();
+      cb(err, dbUser);
 
     }
 });
@@ -87,7 +81,7 @@ userSchema.statics.removeFromDisliked = function(userId, imageId, cb) {
       });
 
     } else {
-      cb();
+      cb(err, dbUser);
 
     }
 });

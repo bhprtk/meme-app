@@ -86,7 +86,7 @@ router.put('/removeFromDisliked/:userId', (req, res) => {
   User.removeFromDisliked(req.params.userId, req.body.imageId, (err, savedUser) => {
     if(err) res.status(400).send(err);
 
-    res.status(200).send();
+    res.status(200).send(savedUser);
   });
 
 
