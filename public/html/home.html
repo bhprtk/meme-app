@@ -1,14 +1,14 @@
 <div style="margin-top: 30px;"></div>
 
-<div class="col-md-2 col-xs-2"></div>
+<div class="col-md-2"></div>
 
-<div class="col-md-7 col-xs-7">
+<div class="col-md-7 col-xs-12">
 
   <md-card ng-repeat="image in images" class="image-card">
 
     <md-card-header>
 
-      <strong>{{image.displayTitle}}</strong>
+      <h4><strong>{{image.displayTitle}}</strong></h4>
 
   </md-card-header>
 
@@ -19,8 +19,8 @@
 
 
         <div>
-          <span ng-hide="image.points===1">{{image.points}} points</span>
-          <span ng-show="image.points===1">{{image.points}} point</span>
+          <span ng-hide="image.points===1"><strong>{{image.points}} points</strong></span>
+          <span ng-show="image.points===1"><strong>{{image.points}} point</strong></span>
           <span ng-show="image.points===0"><small><i>(be the first person to vote)</i></small></span>
 
         </div>

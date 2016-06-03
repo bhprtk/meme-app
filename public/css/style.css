@@ -114,3 +114,9 @@ body {
   background: #bedff6;
   outline: none;
 }
+
+.menu-pic {
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+}

@@ -46,7 +46,7 @@
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
-        <a class="navbar-brand" ui-sref="home">
+        <a class="navbar-brand" ui-sref="home" style="padding-top: 25px;">
           <strong style="color: white;">meme-hub</strong>
           <md-tooltip md-direction="bottom">
             Home
@@ -73,9 +73,13 @@
 
           <!-- Single button -->
             <li class="btn-group nav-buttons">
-              <button type="button" style="margin-top: 10px;" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              hi {{$storage.currentUser.displayName}} <span class="caret"></span>
-            </button>
+                <button class="btn btn-success-outline dropdown-toggle" data-toggle="dropdown" style="background:#222222; color:white">
+                  <img ng-src="{{$storage.currentUser.picture}}" class="menu-pic">
+                  <span><strong>{{$storage.currentUser.displayName}}</strong></span>
+                  <span class="caret"></span>
+                </button>
+
+
               <ul class="dropdown-menu">
                 <li>
                   <a role="button" ui-sref="profile">

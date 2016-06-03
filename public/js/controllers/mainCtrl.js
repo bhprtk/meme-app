@@ -6,8 +6,6 @@ app.controller('mainCtrl', function($scope, $auth, $state, $sessionStorage) {
 
   $scope.$storage = $sessionStorage;
 
-  console.log('$scope.$storage', $scope.$storage);
-
   $scope.isAuthenticated = function() {
     return $auth.isAuthenticated();
   };
