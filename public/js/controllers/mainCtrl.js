@@ -17,7 +17,7 @@ app.controller('mainCtrl', function($scope, $auth, $state, $sessionStorage) {
       .then(() => {
         console.log('youre logged out');
         $sessionStorage.currentUser = null;
-        $state.go('home');
+        $state.go('home', {}, {reload: true});
       });
   };
 

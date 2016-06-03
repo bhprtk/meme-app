@@ -2,102 +2,131 @@
 
 var app = angular.module('memeApp');
 
-app.controller('homeCtrl', function($scope, images, Images, $sessionStorage, Users) {
-
-  var currentUser = $sessionStorage.currentUser;
+app.controller('homeCtrl', function($scope, $state, images, Images, $sessionStorage, Users) {
 
 
-  $scope.points = 0;
   $scope.images = images.reverse();
+
+  $scope.images.forEach(image => {
+    if($sessionStorage.currentUser) {
+      if($sessionStorage.currentUser.liked.indexOf(image._id) > -1) {
+        image.upvoteClass = "turn-blue";
+        image.downvoteClass = null;
+      } else if($sessionStorage.currentUser.disliked.indexOf(image._id) > -1) {
+        image.downvoteClass = "turn-red";
+        image.upvoteClass = null;
+      } else {
+        image.upvoteClass = null;
+        image.downvoteClass = null;
+      }
+    } else {
+      image.upvoteClass = null;
+      image.downvoteClass = null;
+    } 
+  });
 
 
   $scope.upvote = function(image, imagesIndex) {
 
-    if(!$scope.upvoteClass && !$scope.downvoteClass) {//
-      // Images.upvoteById
-      // Users.addUpvote
-      // Users.removeFromDisliked
+    if(!$sessionStorage.currentUser) {
+      $state.go('login');
 
-      Images.upvoteById(image._id)
+    } else {
+      if(!image.upvoteClass && !image.downvoteClass) {//
+        // Images.upvoteById
+        // Users.addUpvote
+        // Users.removeFromDisliked
+
+        Images.upvoteById(image._id)
         .then(res => {
           $scope.images[imagesIndex].points = res.data.points;
         });
-      Users.addUpvoteToUser(image._id, currentUser._id);
-      Users.removeFromDisliked(image._id, currentUser._id);
+        Users.addUpvoteToUser(image._id, $sessionStorage.currentUser._id);
+        Users.removeFromDisliked(image._id, $sessionStorage.currentUser._id);
 
-      $scope.upvoteClass = "turn-blue";
+        image.upvoteClass = "turn-blue";
 
-    } else if(!$scope.upvoteClass && $scope.downvoteClass) {//
-      // Images.upvoteById
-      // Users.removeFromDisliked
+      } else if(!image.upvoteClass && image.downvoteClass) {//
+        // Images.upvoteById
+        // Users.removeFromDisliked
 
-      Images.upvoteById(image._id)
-        .then(res => {
-          $scope.images[imagesIndex].points = res.data.points;
-        });
-
-      Users.removeFromDisliked(image._id, currentUser._id);
-
-      $scope.downvoteClass = null;
-
-    } else if($scope.upvoteClass && !$scope.downvoteClass) {//
-      // Images.downvoteById
-      // Users.removeFromLiked
-
-      Images.downvoteById(image._id)
+        Images.upvoteById(image._id)
         .then(res => {
           $scope.images[imagesIndex].points = res.data.points;
         });
 
-      Users.removeFromLiked(image._id, currentUser._id);
-      $scope.upvoteClass = null;
+        Users.removeFromDisliked(image._id, $sessionStorage.currentUser._id);
+
+        image.downvoteClass = null;
+
+      } else if(image.upvoteClass && !image.downvoteClass) {//
+        // Images.downvoteById
+        // Users.removeFromLiked
+
+        Images.downvoteById(image._id)
+        .then(res => {
+          $scope.images[imagesIndex].points = res.data.points;
+        });
+
+        Users.removeFromLiked(image._id, $sessionStorage.currentUser._id);
+
+        image.upvoteClass = null;
+
+      }
 
     }
+
 
 };
 
   $scope.downvote = function(image, imagesIndex) {
 
-    if(!$scope.downvoteClass  && !$scope.upvoteClass) {//
-      // Images.downvoteById
-      // Users.addDownvote
-      // Users.removeFromLiked
-
-      Images.downvoteById(image._id)
-        .then(res => {
-          $scope.images[imagesIndex].points = res.data.points;
-        });
-
-      Users.addDownvoteToUser(image._id, currentUser._id);
-      Users.removeFromLiked(image._id, currentUser._id);
-
-      $scope.downvoteClass = "turn-red";
-
-    } else if($scope.upvoteClass && !$scope.downvoteClass) {//
-      // Images.downvoteById
-      // Users.removeFromLiked
+    if(!$sessionStorage.currentUser) {
+      $state.go('login');
+    } else {
+      if(!image.downvoteClass  && !image.upvoteClass) {//
+        // Images.downvoteById
+        // Users.addDownvote
+        // Users.removeFromLiked
 
         Images.downvoteById(image._id)
-          .then(res => {
-            $scope.images[imagesIndex].points = res.data.points;
-          });
-
-        Users.removeFromLiked(image._id, currentUser._id);
-        $scope.upvoteClass = null;
-    }
-    else if(!$scope.upvoteClass && $scope.downvoteClass) {//
-      // Images.upvoteById
-      // Users.removeFromDisliked
-
-      Images.upvoteById(image._id)
         .then(res => {
           $scope.images[imagesIndex].points = res.data.points;
         });
 
-      Users.removeFromDisliked(image._id, currentUser._id);
-      $scope.downvoteClass = null;
+        Users.addDownvoteToUser(image._id, $sessionStorage.currentUser._id);
+        Users.removeFromLiked(image._id, $sessionStorage.currentUser._id);
+
+        image.downvoteClass = "turn-red";
+
+      } else if(image.upvoteClass && !image.downvoteClass) {//
+        // Images.downvoteById
+        // Users.removeFromLiked
+
+        Images.downvoteById(image._id)
+        .then(res => {
+          $scope.images[imagesIndex].points = res.data.points;
+        });
+
+        Users.removeFromLiked(image._id, $sessionStorage.currentUser._id);
+        image.upvoteClass = null;
+      }
+      else if(!image.upvoteClass && image.downvoteClass) {//
+        // Images.upvoteById
+        // Users.removeFromDisliked
+
+        Images.upvoteById(image._id)
+        .then(res => {
+          $scope.images[imagesIndex].points = res.data.points;
+        });
+
+        Users.removeFromDisliked(image._id, $sessionStorage.currentUser._id);
+        image.downvoteClass = null;
+
+      }
 
     }
+
 
   };
 
