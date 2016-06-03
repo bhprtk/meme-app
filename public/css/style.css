@@ -74,7 +74,7 @@ body {
 }
 
 .turn-blue {
-  color: #5b965b;
+  color: #006400;
 }
 
 .image-card {
@@ -91,4 +91,26 @@ body {
 .signing-buttons {
   margin-top: 10px;
   margin-left: 10px;
+}
+
+.profile-pic {
+  height: 200px;
+  width: 200px;
+  border-radius: 100%;
+}
+
+.profile-div {
+  text-align: center;
+  height: 350px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  margin-left: -200px;
+  margin-right: -200px;
+  background: #222222;
+  color: white;
+}
+
+.currentTab {
+  background: #bedff6;
+  outline: none;
 }

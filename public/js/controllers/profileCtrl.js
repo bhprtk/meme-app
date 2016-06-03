@@ -2,23 +2,23 @@
 
 var app = angular.module('memeApp');
 
-app.controller('profileCtrl', function($scope, $state, $sessionStorage) {
-  $scope.showLikedPosts = false;
+app.controller('profileCtrl', function($scope, $state, $sessionStorage, Users) {
 
-  console.log($sessionStorage.currentUser);
+  $scope.currentUser = $sessionStorage.currentUser;
 
   $scope.likedPosts = function() {
-    $scope.likedActive = "active";
+    $scope.likedActive = "currentTab";
     $scope.uploadedActive = null;
-    $scope.showLikedPosts = true;
-    var likedPosts = $sessionStorage.currentUser.liked;
 
-    $state.go('profile.home');
-  }
+     $state.go('profile.home', {get: 'liked'});
+  };
 
   $scope.uploadedPosts = function() {
-    $scope.uploadedActive = "active";
+    $scope.uploadedActive = "currentTab";
     $scope.likedActive = null;
-  }
+
+    $state.go('profile.home', {get: 'uploaded'});
+
+  };
 
 });

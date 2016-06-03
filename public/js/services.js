@@ -4,54 +4,72 @@ var app = angular.module('memeApp');
 
 app.service('Users', function($http, $sessionStorage) {
 
-  this.getCurrentUser = (email) => $http.get(`/users/getCurrentUser/${email}`);
+    this.addUploadedImage = (imageId, userId) => $http.put(`/users/addUploadedImage/${userId}`, {
+        imageId: imageId
+    });
 
-  this.addUpvoteToUser = (imageId, userId) => {
+    this.getCurrentUser = (email) => $http.get(`/users/getCurrentUser/${email}`);
 
-    return $http.put(`/users/addUpvote/${userId}`, {imageId: imageId})
-      .then(res => {
-        $sessionStorage.currentUser = res.data;
-      });
-  };
+    this.addUpvoteToUser = (imageId, userId) => {
 
-  this.findIfLiked = (imageId, userId) => $http.put(`/users/findIfLiked/${userId}`, {imageId: imageId});
-
-  this.removeFromLiked = (imageId, userId) => {
-    return $http.put(`/users/removeFromLiked/${userId}`, {imageId: imageId})
-      .then(res => {
-        $sessionStorage.currentUser = res.data;
-      });
-
-  }
-
-  this.addDownvoteToUser = (imageId, userId) =>  {
-    return $http.put(`/users/addDownvote/${userId}`, {imageId: imageId})
-              .then(res => {
+        return $http.put(`/users/addUpvote/${userId}`, {
+                imageId: imageId
+            })
+            .then(res => {
                 $sessionStorage.currentUser = res.data;
-              });
+            });
+    };
 
-  };
+    this.findIfLiked = (imageId, userId) => $http.put(`/users/findIfLiked/${userId}`, {
+        imageId: imageId
+    });
 
-  this.findIfDisliked = (imageId, userId) => $http.put(`/users/findIfDisliked/${userId}`, {imageId: imageId});
+    this.removeFromLiked = (imageId, userId) => {
+        return $http.put(`/users/removeFromLiked/${userId}`, {
+                imageId: imageId
+            })
+            .then(res => {
+                $sessionStorage.currentUser = res.data;
+            });
 
-  this.removeFromDisliked = (imageId, userId) => {
-    return $http.put(`/users/removeFromDisliked/${userId}`, {imageId: imageId})
-      .then(res => {
-        $sessionStorage.currentUser = res.data;
-      });
+    }
 
-  };
+    this.addDownvoteToUser = (imageId, userId) => {
+        return $http.put(`/users/addDownvote/${userId}`, {
+                imageId: imageId
+            })
+            .then(res => {
+                $sessionStorage.currentUser = res.data;
+            });
 
-  this.getLikedPosts = (userId) => $http.get(`/users/getLikedPosts/${userId}`);
+    };
+
+    this.findIfDisliked = (imageId, userId) => $http.put(`/users/findIfDisliked/${userId}`, {
+        imageId: imageId
+    });
+
+    this.removeFromDisliked = (imageId, userId) => {
+        return $http.put(`/users/removeFromDisliked/${userId}`, {
+                imageId: imageId
+            })
+            .then(res => {
+                $sessionStorage.currentUser = res.data;
+            });
+
+    };
+
+    this.getLikedPosts = (userId) => $http.get(`/users/getLikedPosts/${userId}`);
+
+    this.getUploadedPosts = (userId) => $http.get(`/users/getUploadedPosts/${userId}`);
 
 });
 
 app.service('Images', function($http) {
 
-  this.getAllImages = () => $http.get(`/images/getAll`);
+    this.getAllImages = () => $http.get(`/images/getAll`);
 
-  this.upvoteById = (postId) => $http.put(`/images/upvoteById/${postId}`);
+    this.upvoteById = (postId) => $http.put(`/images/upvoteById/${postId}`);
 
-  this.downvoteById = (postId) => $http.put(`/images/downvoteById/${postId}`);
+    this.downvoteById = (postId) => $http.put(`/images/downvoteById/${postId}`);
 
 });

@@ -28,6 +28,15 @@ router.get('/getLikedPosts/:userId', (req, res) => {
   .populate('liked');
 });
 
+router.get('/getUploadedPosts/:userId', (req, res) => {
+  User.findById(req.params.userId, (err, uploadedPosts) => {
+    if(err) res.status(400).send(err);
+    res.send(uploadedPosts);
+  })
+  .select('posted')
+  .populate('posted');
+});
+
 router.put('/addUpvote/:userId', (req, res) => {
 
   User.addLikedPost(req.params.userId, req.body.imageId, (err, savedUser) => {
@@ -98,6 +107,16 @@ router.put('/removeFromDisliked/:userId', (req, res) => {
     res.status(200).send(savedUser);
   });
 
+
+});
+
+router.put('/addUploadedImage/:userId', (req, res) => {
+
+  User.addUploadedImage(req.params.userId, req.body.imageId, (err, savedUser) => {
+    if(err) res.status(400).send(err);
+
+    res.status(200).send(savedUser);
+  });
 
 });
 

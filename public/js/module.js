@@ -37,17 +37,30 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
       templateUrl: '/html/profile.html',
       controller: 'profileCtrl'
     })
+    .state('settings', {
+      url: '/settings',
+      templateUrl: '/html/settings.html',
+      controller: 'settingsCtrl'
+    })
     .state('profile.home', {
-      url: '/profile.home',
+      url: '/profile.home/:get',
       templateUrl: '/html/home.html',
       controller: 'homeCtrl',
       resolve: {
-        images: function(Users, $sessionStorage) {
-           return Users.getLikedPosts($sessionStorage.currentUser._id)
-            .then(res => {
-              console.log('res after getLikedPosts', res.data);
-              return res.data.liked;
-            })
+        images: function(Users, $sessionStorage, $stateParams) {
+
+          if($stateParams.get === 'liked') {
+            return Users.getLikedPosts($sessionStorage.currentUser._id)
+              .then(res => {
+                return res.data.liked;
+              })
+          } else if($stateParams.get === 'uploaded') {
+            return Users.getUploadedPosts($sessionStorage.currentUser._id)
+              .then(res => {
+                return res.data.posted;
+              })
+          }
+
         }
       }
     })

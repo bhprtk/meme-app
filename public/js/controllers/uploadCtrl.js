@@ -2,7 +2,7 @@
 
 var app = angular.module('memeApp');
 
-app.controller('uploadCtrl', function($scope, $state, $sessionStorage, Upload) {
+app.controller('uploadCtrl', function($scope, $state, $sessionStorage, Upload, Users) {
 
   $scope.uploadImage = {};
   $scope.addUrl = false;
@@ -12,15 +12,16 @@ app.controller('uploadCtrl', function($scope, $state, $sessionStorage, Upload) {
   $scope.$storage = $sessionStorage;
 
   $scope.upload = function() {
-    console.log('$scope.file', $scope.file);
-    console.log(typeof $scope.file);
-
     Upload.upload({
       url: '/images',
       data: { newFile: $scope.file, displayTitle: $scope.uploadImage.displayTitle }
     })
     .then(res => {
-      $state.go('home');
+      Users.addUploadedImage(res.data._id, $sessionStorage.currentUser._id)
+        .then(res => {
+          $state.go('home');
+
+        });
     })
     .catch(err => {
       console.log('err:', err);

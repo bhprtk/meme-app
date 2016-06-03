@@ -39,6 +39,7 @@
     <script src="/js/controllers/uploadCtrl.js"></script>
     <script src="/js/controllers/homeCtrl.js"></script>
     <script src="/js/controllers/profileCtrl.js"></script>
+    <script src="/js/controllers/settingsCtrl.js"></script>
 
   </head>
   <body ng-app="memeApp" ng-controller="mainCtrl" bgcolor="#fafafa">
@@ -87,7 +88,7 @@
                 </li>
 
                 <li>
-                  <a role="button">
+                  <a role="button" ui-sref="settings">
                     <div layout="row" layout-align="space-between center">
                       <span>Settings</span>
                       <span class="fa fa-cog"></span>

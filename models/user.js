@@ -25,6 +25,23 @@ var userSchema = new mongoose.Schema({
 });
 
 
+userSchema.statics.addUploadedImage = function(userId, imageId, cb) {
+
+  console.log('userId in addUploadedImage statics', userId);
+  console.log('imageId in addUploadedImage statics', imageId);
+
+  User.findById(userId, (err, dbUser) => {
+    if(err) cb(err);
+
+    dbUser.posted.push(imageId);
+    dbUser.save((err, savedUser) => {
+      cb(err, savedUser);
+    });
+  });
+
+
+};
+
 userSchema.statics.addLikedPost = function(userId, imageId, cb) {
 
   User.findById(userId, (err, dbUser) => {

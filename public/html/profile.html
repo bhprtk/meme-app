@@ -1,9 +1,18 @@
+
+<div class="profile-div">
+  <img ng-src="{{contact.image || 'http://cdn1.thelittlenews.com/wp-content/uploads/2015/09/wallpaper-for-facebook-profile-photo-450x400.jpg'}}"
+        class="profile-pic">
+  <h1>{{currentUser.displayName}}</h1>
+
+</div>
+
+
 <ul class="nav nav-pills nav-justified">
   <li ng-class="likedActive" ng-click="likedPosts()">
-    <a>Liked posts</a>
+    <a><h2>Liked posts ({{currentUser.liked.length}})</h2></a>
   </li>
   <li ng-class="uploadedActive" ng-click="uploadedPosts()">
-    <a>Uploaded posts</a>
+    <a><h2>Uploaded posts ({{currentUser.posted.length}})</h2></a>
   </li>
 </ul>
 

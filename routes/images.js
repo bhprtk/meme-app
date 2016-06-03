@@ -30,7 +30,6 @@ router.post('/', upload.single('newFile'), (req, res) => {
     });
   } else if(imageInfoObj) {
     Image.uploadImageWithUrl(imageInfoObj, (err, image) => {
-      console.log('image after upload', image);
       res.status(err ? 400 : 200).send(err || image);
     });
   }
