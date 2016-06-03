@@ -32,6 +32,25 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
       templateUrl: '/html/upload.html',
       controller: 'uploadCtrl'
     })
+    .state('profile', {
+      url: '/profile',
+      templateUrl: '/html/profile.html',
+      controller: 'profileCtrl'
+    })
+    .state('profile.home', {
+      url: '/profile.home',
+      templateUrl: '/html/home.html',
+      controller: 'homeCtrl',
+      resolve: {
+        images: function(Users, $sessionStorage) {
+           return Users.getLikedPosts($sessionStorage.currentUser._id)
+            .then(res => {
+              console.log('res after getLikedPosts', res.data);
+              return res.data.liked;
+            })
+        }
+      }
+    })
 
     $urlRouterProvider.otherwise('/');
 });

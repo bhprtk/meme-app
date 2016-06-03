@@ -40,7 +40,9 @@ app.service('Users', function($http, $sessionStorage) {
         $sessionStorage.currentUser = res.data;
       });
 
-  }
+  };
+
+  this.getLikedPosts = (userId) => $http.get(`/users/getLikedPosts/${userId}`);
 
 });
 

@@ -19,6 +19,15 @@ router.get('/getCurrentUser/:email', (req, res) => {
 
 });
 
+router.get('/getLikedPosts/:userId', (req, res) => {
+  User.findById(req.params.userId, (err, likedPosts) => {
+    if(err) res.status(400).send(err);
+    res.send(likedPosts);
+  })
+  .select('liked')
+  .populate('liked');
+});
+
 router.put('/addUpvote/:userId', (req, res) => {
 
   User.addLikedPost(req.params.userId, req.body.imageId, (err, savedUser) => {
