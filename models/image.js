@@ -22,7 +22,6 @@ let imageSchema = new mongoose.Schema({
 
 
 imageSchema.statics.uploadImageWithUrl = function(imageInfo, cb) {
-  console.log('imageInfo', imageInfo);
 
   Image.create({
     url: imageInfo.newFile,
@@ -61,9 +60,7 @@ imageSchema.statics.downvoteById = function(postId, cb) {
 
 imageSchema.statics.upload = (file, imageInfo, cb) => {
   if(!file.mimetype.match(/image/)) {
-    console.log('imageInfo', imageInfo);
-    // return cb({error: 'File must be image.'});
-
+    return cb({error: 'File must be image.'});
   }
 
   let filenameParts = file.originalname.split('.');

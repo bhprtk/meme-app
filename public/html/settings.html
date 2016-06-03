@@ -1,34 +1,102 @@
-<div style="padding-top: 70px;">
+<div style="padding-top: 70px;"></div>
 
+<div class="row">
+  <div class="col-md-3 col-xs-3"></div>
 </div>
+
 
 <div class="row">
   <div class="col-md-3 col-xs-3"></div>
 
 
+  <div class="col-md-6 col-xs-6">
+    <h4>Update display name</h4>
+    <br>
+
+    <md-card class="register-card">
+      <form ng-submit="updateName()">
+        <md-input-container class="form-input">
+          <label>Update display name</label>
+          <input type="text" ng-model="newName">
+        </md-input-container>
+      </form>
+    </md-card>
+    <hr>
+
+  </div>
+
 </div>
 
-<div class="row">
 
+<!--                         PROFILE PIC UPLOAD                                         -->
+<div class="row">
   <div class="col-md-3 col-xs-3"></div>
 
   <div class="col-md-6 col-xs-6">
-  <md-card class="register-card">
+    <h4>Update profile picture</h4>
+    <br>
+  </div>
+</div>
 
-    <form>
+<div class="row" ng-hide="file">
 
-      <md-input-container class="form-input">
-        <label>Update display name</label>
-        <input type="text">
+  <div class="col-md-3 col-xs-3"></div>
+
+  <div class="col-md-3 col-xs-3">
+
+    <md-card class="drop-box upload-image"
+      ng-hide="addUrl"
+      role="button"
+      ng-model="file"
+      name="file"
+      ngf-select
+      ngf-drop
+      ngf-pattern="'image/*'"
+      ngf-accept="'image/*'"
+      ngf-max-size="20MB">
+      <i class="fa fa-cloud-upload fa-upload">
+        <span style="font-size: 18px;"><p>Select or drag an image here</p></span>
+      </i>
+    </md-card>
+  </div>
+
+  <div class="col-md-3 col-xs-3">
+    <md-card style="padding-top: 20px;" class="register-card upload-image" ng-click="addUrl=true" ng-hide="addUrl">
+      <md-input-container role="button">
+        <i class="fa fa-globe fa-upload">
+          <span style="font-size: 18px;"><p>Or add an image url</p></span>
+        </i>
       </md-input-container>
+    </md-card>
+  </div>
 
+  <div class="col-md-6 col-xs-6 col-md-offset-3 col-xs-offset-3" ng-show="addUrl">
 
+    <md-card class="register-card upload-image">
+      <form>
+        <md-input-container class="form-input" role="button">
+          <label>Image Url</label>
+          <input type="text" ng-model="file" required>
+        </md-input-container>
+        <button class="btn btn-success">Upload</button>
+        <button class="btn btn-danger" ng-click="addUrl=false">Cancel</button>
+      </form>
+    </md-card>
 
-    </form>
-
-
-  </md-card>
+  </div>
 
 </div>
+
+<div class="row" ng-show="file">
+  <div class="col-md-3 col-xs-3"></div>
+
+  <div class="col-md-6 col-xs-6 text-center">
+    <img class="profile-pic" ngf-src="file">
+    <hr>
+    <div layout="row" layout-align="space-around center">
+      <button class="btn btn-danger footer-btn" style="margin-right: 10px;" ng-click="file=null"><h4>Cancel</h4></button>
+      <button class="btn btn-info footer-btn" ng-click="upload()"><h4>Update</h4></button>
+    </div>
+  </div>
 
 </div>

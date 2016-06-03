@@ -1,5 +1,13 @@
 var express = require('express');
+var multer = require('multer');
+
 var router = express.Router();
+var upload= multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    filesize: 1000000 * 10
+  }
+})
 
 var User = require('../models/user');
 
@@ -37,6 +45,23 @@ router.get('/getUploadedPosts/:userId', (req, res) => {
   .populate('posted');
 });
 
+router.post('/profilePic', upload.single('newFile'), (req, res) => {
+
+  console.log('req.file', req.file);
+  console.log('req.body', req.body);
+
+  if(req.file) {
+    User.uploadProfilePic(req.file, req.body.userId, (err, updatedUser) => {
+      res.status(err ? 400 : 200).send(err || updatedUser);
+    });
+  } else if(req.body) {
+    User.uploadProfilePicWithUrl(req.body.newFile, req.body.userId, (err, updatedUser) => {
+      res.status(err ? 400 : 200).send(err || updatedUser);
+    });
+  }
+
+});
+
 router.put('/addUpvote/:userId', (req, res) => {
 
   User.addLikedPost(req.params.userId, req.body.imageId, (err, savedUser) => {
@@ -55,38 +80,6 @@ router.put('/addDownvote/:userId', (req, res) => {
   });
 
 });
-
-
-router.put('/findIfLiked/:userId', (req, res) => {
-  var imageId = req.body.imageId;
-
-  User.findById(req.params.userId, (err, dbUser) => {
-    if(err) res.status(400).send(err);
-
-    if(dbUser.liked.indexOf(imageId) >= 0) {
-      res.status(200).send('cannot upvote');
-    } else {
-      res.status(200).send('can upvote');
-
-    }
-  });
-});
-
-router.put('/findIfDisliked/:userId', (req, res) => {
-  var imageId = req.body.imageId;
-
-  User.findById(req.params.userId, (err, dbUser) => {
-    if(err) res.status(400).send(err);
-
-    if(dbUser.disliked.indexOf(imageId) >= 0) {
-      res.status(200).send('cannot downvote');
-    } else {
-      res.status(200).send('can downvote');
-
-    }
-  });
-});
-
 
 router.put('/removeFromLiked/:userId', (req, res) => {
 
@@ -119,6 +112,17 @@ router.put('/addUploadedImage/:userId', (req, res) => {
   });
 
 });
+
+router.put('/updateName/:userId', (req, res) => {
+
+  User.findByIdAndUpdate(req.params.userId, {$set: { displayName: req.body.newName }}, {new: true}, (err, savedUser) => {
+    if(err) res.status(400).send(err);
+
+    res.status(200).send(savedUser);
+  });
+
+});
+
 
 
 

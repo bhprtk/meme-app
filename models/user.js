@@ -7,6 +7,12 @@ var request = require('request');
 var qs = require('querystring');
 var moment = require('moment');
 
+var AWS = require('aws-sdk');
+var uuid = require('uuid');
+var s3 = new AWS.S3();
+var bucketName = process.env.AWS_BUCKET;
+var urlBase = process.env.AWS_URL_BASE;
+
 const JWT_SECRET = process.env.JWT_SECRET;
 
 if(!JWT_SECRET) {
@@ -25,10 +31,57 @@ var userSchema = new mongoose.Schema({
 });
 
 
-userSchema.statics.addUploadedImage = function(userId, imageId, cb) {
+userSchema.statics.uploadProfilePic = function(file, userId, cb) {
 
-  console.log('userId in addUploadedImage statics', userId);
-  console.log('imageId in addUploadedImage statics', imageId);
+  if(!file.mimetype.match(/image/)) {
+    return cb({error: 'File must be image.'});
+  }
+
+  let filenameParts = file.originalname.split('.');
+
+  let ext;
+  if(filenameParts.length > 1) {
+    ext = '.' + filenameParts.pop();
+  } else {
+    ext = '';
+  }
+
+  let key = uuid() + `${ext}`;
+
+  let params = {
+    Bucket: bucketName,
+    Key: key,
+    ACL: 'public-read',
+    Body: file.buffer
+  };
+
+  s3.putObject(params, (err, result) => {
+    if(err) return cb(err);
+
+    let imgUrl = `${urlBase}/${bucketName}/${key}`;
+
+    User.findById(userId, (err, dbUser) => {
+      dbUser.picture = imgUrl;
+      dbUser.save((err, savedUser) => {
+        cb(err, savedUser);
+      });
+    });
+
+  });
+};
+
+
+userSchema.statics.uploadProfilePicWithUrl = function(url, userId, cb) {
+  User.findById(userId, (err, dbUser) => {
+    dbUser.picture = url;
+    dbUser.save((err, savedUser) => {
+      cb(err, savedUser);
+    });
+  });
+};
+
+
+userSchema.statics.addUploadedImage = function(userId, imageId, cb) {
 
   User.findById(userId, (err, dbUser) => {
     if(err) cb(err);

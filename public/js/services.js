@@ -62,6 +62,8 @@ app.service('Users', function($http, $sessionStorage) {
 
     this.getUploadedPosts = (userId) => $http.get(`/users/getUploadedPosts/${userId}`);
 
+    this.saveNewName = (userId, newName) => $http.put(`/users/updateName/${userId}`, {newName: newName});
+
 });
 
 app.service('Images', function($http) {
