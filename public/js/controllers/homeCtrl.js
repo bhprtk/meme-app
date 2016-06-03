@@ -22,9 +22,16 @@ app.controller('homeCtrl', function($scope, $state, images, Images, $sessionStor
     } else {
       image.upvoteClass = null;
       image.downvoteClass = null;
-    } 
+    }
   });
 
+  $scope.isLoggedIn = function() {
+    if($sessionStorage.currentUser) {
+      $state.go('upload');
+    } else {
+      $state.go('login');
+    }
+  };
 
   $scope.upvote = function(image, imagesIndex) {
 

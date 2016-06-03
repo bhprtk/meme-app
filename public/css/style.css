@@ -82,3 +82,14 @@ body {
   margin-bottom: 50px;
   background: white;
 }
+
+.add-button {
+  margin-top: 50px;
+  margin-left: 50px;
+  position: fixed;
+}
+
+.signing-buttons {
+  margin-top: 10px;
+  margin-left: 10px;
+}

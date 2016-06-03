@@ -46,8 +46,16 @@
         <a class="navbar-brand" ui-sref="home"><strong>Ecstasy</strong></a>
 
         <ul class="nav navbar-nav navbar-right" ng-if="!isAuthenticated()">
-          <li><a ui-sref="login">Sign in</a></li>
-          <li><a ui-sref="register">Sign up</a></li>
+          <li>
+            <button class="btn btn-primary signing-buttons" style="background: #ff4c4c;" ui-sref="login">
+              <strong>Sign in</strong>
+            </button class="btn btn-default">
+          </li>
+          <li>
+            <button class="btn btn-primary signing-buttons" style="background: #528B8B;" ui-sref="register">
+              <strong>Sign up</strong>
+            </button class="btn btn-default">
+          </li>
         </ul>
 
         <ul class="nav navbar-nav navbar-right" ng-if="isAuthenticated()">
@@ -99,7 +107,7 @@
 
 
           <!-- <li><a role="button" ng-click="logout()">Log out</a></li> -->
-          <li class="nav-buttons"><button class="btn btn-success" style="margin-top: 10px;" ui-sref="upload">Upload</button></li>
+          <!-- <li class="nav-buttons"><button class="btn btn-success" style="margin-top: 10px;" ui-sref="upload">Upload</button></li> -->
         </ul>
 
 

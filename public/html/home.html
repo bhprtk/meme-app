@@ -28,9 +28,15 @@
         <div>
           <button title="Upvote" class="btn btn-default fa-thumbs" ng-click="upvote(image, $index)">
             <i class="fa fa-thumbs-o-up fa-2x" ng-class="image.upvoteClass"></i>
+            <md-tooltip md-direction="bottom">
+              Upvote
+            </md-tooltip>
           </button>
-          <button title="Downvote" class="btn btn-default fa-thumbs" ng-click="downvote(image, $index)">
+          <button class="btn btn-default fa-thumbs" ng-click="downvote(image, $index)">
             <i class="fa fa-thumbs-o-down fa-2x" ng-class="image.downvoteClass"></i>
+            <md-tooltip md-direction="bottom">
+              Downvote
+            </md-tooltip>
           </button>
 
         </div>
@@ -39,4 +45,15 @@
 
   </md-card>
 
+</div>
+
+<div class="col-md-2 col-xs-2">
+  <md-button ng-click="isLoggedIn()" class="md-fab add-button" style="background-color: #66a266;">
+    <i class="fa fa-plus" style="font-size: 32px; padding-top: 15px;"></i>
+
+    <md-tooltip md-direction="bottom">
+      Upload
+    </md-tooltip>
+    <!-- <md-icon md-svg-src="img/icons/android.svg"></md-icon> -->
+  </md-button>
 </div>
