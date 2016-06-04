@@ -4,8 +4,8 @@
  * Module dependencies.
  */
 
-require('dotenv').config();
 
+console.log('www b');
 var app = require('../app');
 var debug = require('debug')('meme-app:server');
 var http = require('http');

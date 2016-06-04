@@ -17,6 +17,7 @@ app.controller('profileCtrl', function($scope, $state, $sessionStorage, Users) {
     $scope.uploadedActive = "currentTab";
     $scope.likedActive = null;
 
+    $sessionStorage.currentUser.get = 'uploaded';
     $state.go('profile.home', {get: 'uploaded'});
 
   };

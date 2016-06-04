@@ -47,9 +47,6 @@ router.get('/getUploadedPosts/:userId', (req, res) => {
 
 router.post('/profilePic', upload.single('newFile'), (req, res) => {
 
-  console.log('req.file', req.file);
-  console.log('req.body', req.body);
-
   if(req.file) {
     User.uploadProfilePic(req.file, req.body.userId, (err, updatedUser) => {
       res.status(err ? 400 : 200).send(err || updatedUser);
@@ -123,7 +120,14 @@ router.put('/updateName/:userId', (req, res) => {
 
 });
 
+// remove imageId from users,
+router.delete('/removePost/:userId', (req, res) => {
+  User.removePost(req.params.userId, req.query.imageId, (err, savedUser) => {
+    if(err) res.status(400).send(err);
 
+    res.send(savedUser);
+  });
+});
 
 
 module.exports = router;

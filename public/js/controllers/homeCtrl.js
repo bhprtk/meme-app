@@ -2,7 +2,7 @@
 
 var app = angular.module('memeApp');
 
-app.controller('homeCtrl', function($scope, $state, images, Images, $sessionStorage, Users) {
+app.controller('homeCtrl', function($scope, $state, images, Images, $sessionStorage, Users, $mdDialog) {
 
 
   $scope.images = images.reverse();
@@ -24,6 +24,23 @@ app.controller('homeCtrl', function($scope, $state, images, Images, $sessionStor
       image.downvoteClass = null;
     }
   });
+
+  $scope.removePost = function(image) {
+    var confirm = $mdDialog.confirm()
+          .title('Are you sure you want to delete this post?')
+          .ok('Yes please')
+          .cancel('Not sure');
+    $mdDialog.show(confirm)
+      .then(function() {
+        Images.deletePost(image._id)
+          .then(() => {
+            Users.deletePost($sessionStorage.currentUser._id, image._id)
+              .then(res => {
+                $sessionStorage.currentUser = res.data;
+              })
+          });
+      });
+  };
 
   $scope.isLoggedIn = function() {
     if($sessionStorage.currentUser) {

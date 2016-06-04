@@ -50,4 +50,12 @@ router.put('/downvoteById/:postId', (req, res) => {
   });
 });
 
+router.delete('/deleteById/:imageId', (req, res) => {
+  Image.findByIdAndRemove(req.params.imageId, err => {
+    if(err) res.status(400).send(err);
+
+    res.send();
+  });
+});
+
 module.exports = router;

@@ -57,7 +57,10 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
           } else if($stateParams.get === 'uploaded') {
             return Users.getUploadedPosts($sessionStorage.currentUser._id)
               .then(res => {
-                return res.data.posted;
+                  var postedImages = res.data.posted;
+                  postedImages.isUploaded = true;
+
+                return postedImages;
               })
           }
 

@@ -4,18 +4,20 @@
 
 <div class="col-md-7 col-xs-12">
 
-  <md-card ng-repeat="image in images" class="image-card">
+  <div ng-repeat="image in images" >
 
-    <md-card-header>
+    <md-card class="image-card">
 
-      <h4><strong>{{image.displayTitle}}</strong></h4>
+      <md-card-header>
 
-  </md-card-header>
+        <h4><strong>{{image.displayTitle}}</strong></h4>
 
-    <img ng-src="{{image.url}}" class="md-card-image">
+      </md-card-header>
+
+      <img ng-src="{{image.url}}" class="md-card-image">
 
 
-    <md-card-footer layout="row" layout-align="space-between center">
+      <md-card-footer layout="row" layout-align="space-between center">
 
 
         <div>
@@ -26,6 +28,15 @@
         </div>
 
         <div>
+
+          <button class="btn btn-default fa-thumbs" ng-show='images.isUploaded' ng-click="removePost(image)">
+            <i class="fa fa-trash-o fa-2x" style="color: #999900"></i>
+            <md-tooltip md-direction="bottom">
+              Delete
+            </md-tooltip>
+          </button>
+
+
           <button title="Upvote" class="btn btn-default fa-thumbs" ng-click="upvote(image, $index)">
             <i class="fa fa-thumbs-o-up fa-2x" ng-class="image.upvoteClass"></i>
             <md-tooltip md-direction="bottom">
@@ -41,11 +52,14 @@
 
         </div>
 
-    </md-card-footer>
+      </md-card-footer>
 
-  </md-card>
 
-</div>
+    </md-card>
+
+  </div>
+  </div>
+
 
 <div class="col-md-2 col-xs-2">
   <md-button ng-click="isLoggedIn()" class="md-fab add-button" style="background-color: #66a266;">

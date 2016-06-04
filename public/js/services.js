@@ -64,6 +64,8 @@ app.service('Users', function($http, $sessionStorage) {
 
     this.saveNewName = (userId, newName) => $http.put(`/users/updateName/${userId}`, {newName: newName});
 
+    this.deletePost = (userId, imageId) => $http.delete(`/users/removePost/${userId}?imageId=${imageId}`);
+
 });
 
 app.service('Images', function($http) {
@@ -73,5 +75,7 @@ app.service('Images', function($http) {
     this.upvoteById = (postId) => $http.put(`/images/upvoteById/${postId}`);
 
     this.downvoteById = (postId) => $http.put(`/images/downvoteById/${postId}`);
+
+    this.deletePost = (postId) => $http.delete(`/images/deleteById/${postId}`);
 
 });

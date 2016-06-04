@@ -31,6 +31,33 @@ var userSchema = new mongoose.Schema({
 });
 
 
+userSchema.statics.removePost = function(userId, imageId, cb) {
+  console.log('imageId', imageId);
+  User.findById(userId, (err, dbUser) => {
+    if(err) cb(err);
+
+  console.log('dbUser.posted before filter', dbUser.posted);
+
+    dbUser.posted = dbUser.posted.filter(function(post) {
+      return post.toString() !== imageId;
+    });
+
+    dbUser.liked = dbUser.liked.filter(function(post) {
+      return post.toString() !== imageId;
+    });
+    dbUser.disliked = dbUser.disliked.filter(function(post) {
+      return post.toString() !== imageId;
+    });
+
+    dbUser.save((err, savedUser) => {
+      console.log('savedUser', savedUser);
+      cb(err, savedUser);
+    })
+  });
+};
+
+
+
 userSchema.statics.uploadProfilePic = function(file, userId, cb) {
 
   if(!file.mimetype.match(/image/)) {

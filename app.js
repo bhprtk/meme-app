@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -7,9 +9,12 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
 
+
+
 var app = express();
 
 const MONGOURL = process.env.MONGODB_URI || process.env.MONGOURL;
+
 
 mongoose.connect(MONGOURL, err => {
   console.log(err || `MongoDB connected to ${MONGOURL}`);
