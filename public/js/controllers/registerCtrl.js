@@ -2,7 +2,7 @@
 
 var app = angular.module('memeApp');
 
-app.controller('registerCtrl', function($scope, $auth) {
+app.controller('registerCtrl', function($scope, $auth, $timeout) {
   console.log('registerCtrl');
 
   $scope.dismissAlert = () => {
@@ -16,9 +16,8 @@ app.controller('registerCtrl', function($scope, $auth) {
     if($scope.newUser.password !== $scope.newUser.password2) {
       $scope.error = "Password mismatch"
       $scope.showAlert = true;
+      $timeout($scope.dismissAlert, 2000);
     } else {
-
-      console.log('$scope.newUser', $scope.newUser);
 
       var newUser = {
         email: $scope.newUser.email,
@@ -31,9 +30,9 @@ app.controller('registerCtrl', function($scope, $auth) {
           $scope.showSuccess = true;
         })
         .catch(err => {
-          $scope.showAlert = true;
-          console.log('err:', err);
           $scope.error = err.data.message;
+          $scope.showAlert = true;
+          $timeout($scope.dismissAlert, 2000);
         });
     }
   };

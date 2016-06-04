@@ -46,7 +46,7 @@
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
-        <a class="navbar-brand" ui-sref="home" style="padding-top: 25px;">
+        <a class="navbar-brand" ui-sref="home" style="padding-top: 25px; margin-bottom: 15px;">
           <strong style="color: white;">meme-hub</strong>
           <md-tooltip md-direction="bottom">
             Home
@@ -74,7 +74,7 @@
           <!-- Single button -->
             <li class="btn-group nav-buttons">
                 <button class="btn btn-success-outline dropdown-toggle" data-toggle="dropdown" style="background:#222222; color:white">
-                  <img ng-src="{{$storage.currentUser.picture}}" class="menu-pic">
+                  <img ng-src="{{$storage.currentUser.picture || 'http://cdn1.thelittlenews.com/wp-content/uploads/2015/09/wallpaper-for-facebook-profile-photo-450x400.jpg'}}" class="menu-pic">
                   <span><strong>{{$storage.currentUser.displayName}}</strong></span>
                   <span class="caret"></span>
                 </button>

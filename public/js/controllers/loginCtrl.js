@@ -2,7 +2,7 @@
 
 var app = angular.module('memeApp');
 
-app.controller('loginCtrl', function($scope, $auth, $sessionStorage, $http, $state, $stateParams, Users) {
+app.controller('loginCtrl', function($scope, $auth, $sessionStorage, $http, $state, $stateParams, Users, $timeout) {
 
   $scope.loginUser = {};
 
@@ -23,8 +23,11 @@ app.controller('loginCtrl', function($scope, $auth, $sessionStorage, $http, $sta
           })
         })
         .catch(err => {
-          $scope.error = err.data.message;
-          $scope.showAlert = true;
+          $timeout(function() {
+            $scope.error = err.data.message;
+            $scope.showAlert = true;
+          }, 1000);
+          $timeout($scope.dismissAlert, 4000);
         });
 
 
