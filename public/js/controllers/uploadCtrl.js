@@ -19,6 +19,7 @@ app.controller('uploadCtrl', function($scope, $state, $sessionStorage, Upload, U
     .then(res => {
       Users.addUploadedImage(res.data._id, $sessionStorage.currentUser._id)
         .then(res => {
+          $sessionStorage.currentUser = res.data;
           $state.go('home');
 
         });

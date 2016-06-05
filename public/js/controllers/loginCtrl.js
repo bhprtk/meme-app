@@ -19,6 +19,7 @@ app.controller('loginCtrl', function($scope, $auth, $sessionStorage, $http, $sta
         Users.getCurrentUser(email)
           .then(res => {
             $sessionStorage.currentUser = res.data;
+
             $state.go('home');
           })
         })
@@ -34,14 +35,16 @@ app.controller('loginCtrl', function($scope, $auth, $sessionStorage, $http, $sta
   };
 
   $scope.authenticate = function(provider) {
+    console.log('authenticate');
       $auth.authenticate(provider)
         .then(res => {
+          console.log('res after authenticate', res);
           var email = res.data.profile.email;
-          // Users.getCurrentUser(email)
-          //   .then(res => {
-          //     $sessionStorage.currentUser = res.data;
-          //     $state.go('profile');
-          //   });
+          Users.getCurrentUser(email)
+            .then(res => {
+              $sessionStorage.currentUser = res.data;
+              $state.go('profile');
+            });
         })
         .catch(err => {
           console.log('error for authenticate', err);

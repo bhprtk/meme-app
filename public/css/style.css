@@ -124,3 +124,7 @@ body {
   margin-right: 10px;
 
 }
+
+.nav-tabs>li>a:hover {
+    background: #bedff6;
+}

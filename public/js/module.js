@@ -3,6 +3,17 @@
 var app = angular.module('memeApp', ['ui.router', 'ngStorage', 'satellizer', 'ngMaterial', 'ngMessages', 'ngFileUpload']);
 
 app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
+
+  $authProvider.facebook({
+    clientId: '1409891765703679' // get facebook id
+  });
+
+  $authProvider.github({
+      clientId: 'b23dc036d1d3a37ae736'
+    });
+
+
+
   $stateProvider
     .state('home', {
       url: '/',
@@ -48,6 +59,7 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
       controller: 'homeCtrl',
       resolve: {
         images: function(Users, $sessionStorage, $stateParams) {
+
 
           if($stateParams.get === 'liked') {
             return Users.getLikedPosts($sessionStorage.currentUser._id)

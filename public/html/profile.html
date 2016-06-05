@@ -7,12 +7,12 @@
 </div>
 
 
-<ul class="nav nav-pills nav-justified">
+<ul class="nav nav-tabs nav-justified profile-tabs">
   <li ng-class="likedActive" ng-click="likedPosts()">
-    <a><h2>Liked posts ({{currentUser.liked.length}})</h2></a>
+    <a><h3>Liked posts ({{currentUser.liked.length}})</h3></a>
   </li>
   <li ng-class="uploadedActive" ng-click="uploadedPosts()">
-    <a><h2>Uploaded posts ({{currentUser.posted.length}})</h2></a>
+    <a><h3>Uploaded posts ({{currentUser.posted.length}})</h3></a>
   </li>
 </ul>
 

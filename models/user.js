@@ -22,12 +22,14 @@ if(!JWT_SECRET) {
 
 var userSchema = new mongoose.Schema({
   email: { type: String, unique: true, required: true },
-  password: { type: String, required: true },
+  password: { type: String },
   displayName: String,
   picture: String,
   posted: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Image' }],
   liked: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Image' }],
-  disliked: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Image' }]
+  disliked: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Image' }],
+  facebook: String,
+  github: String
 });
 
 

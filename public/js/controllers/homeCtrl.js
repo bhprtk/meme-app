@@ -33,10 +33,12 @@ app.controller('homeCtrl', function($scope, $state, images, Images, $sessionStor
     $mdDialog.show(confirm)
       .then(function() {
         Images.deletePost(image._id)
-          .then(() => {
+          .then(res => {
+            console.log('res after delete', res);
             Users.deletePost($sessionStorage.currentUser._id, image._id)
               .then(res => {
                 $sessionStorage.currentUser = res.data;
+                $state.go($state.current, {}, {reload: true});
               })
           });
       });
