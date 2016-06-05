@@ -54,19 +54,25 @@ app.controller('homeCtrl', function($scope, $state, images, Images, $sessionStor
 
 
   $scope.comments = function(image, imagesIndex) {
-    if(!image.commentClass) {
-      image.commentClass = 'turn-red';
-      image.showComments = true;
-      Images.getComments(image._id)
+    if(!$sessionStorage.currentUser) {
+      $state.go('login');
+
+    } else {
+      if(!image.commentClass) {
+        image.commentClass = 'turn-red';
+        image.showComments = true;
+        Images.getComments(image._id)
         .then(res => {
           image.comments = res.data.reverse();
         })
         .catch(err => {
           console.log('err after getComments', err);
         })
-    } else {
-      image.commentClass = null;
-      image.showComments = false;
+      } else {
+        image.commentClass = null;
+        image.showComments = false;
+      }
+      
     }
   }
 
