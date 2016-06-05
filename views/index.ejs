@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Meme App</title>
+    <title>meme-hub</title>
 
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/bower_components/bootstrap-social/bootstrap-social.css">
@@ -40,44 +40,48 @@
     <script src="/js/controllers/homeCtrl.js"></script>
     <script src="/js/controllers/profileCtrl.js"></script>
     <script src="/js/controllers/settingsCtrl.js"></script>
+    <script src="/js/controllers/commentsCtrl.js"></script>
 
   </head>
   <body ng-app="memeApp" ng-controller="mainCtrl" bgcolor="#fafafa">
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
-        <a class="navbar-brand" ui-sref="home" style="padding-top: 25px; margin-bottom: 15px;">
-          <strong style="color: white;">meme-hub</strong>
-          <md-tooltip md-direction="bottom">
-            Home
-          </md-tooltip>
-        </a>
 
-        <ul class="nav navbar-nav navbar-right" ng-if="!isAuthenticated()">
-          <li>
-            <button class="btn btn-primary signing-buttons" style="background: #ff4c4c;" ui-sref="login">
-              <strong>Sign in</strong>
-            </button class="btn btn-default">
-          </li>
-          <li>
-            <button class="btn btn-primary signing-buttons" style="background: #528B8B;" ui-sref="register">
-              <strong>Sign up</strong>
-            </button class="btn btn-default">
-          </li>
-        </ul>
+        <div class="col-md-12 col-sm-12 col-xs-12">
 
-        <ul class="nav navbar-nav navbar-right" ng-if="isAuthenticated()">
-          <!-- <li><a>hi {{$storage.currentUser.displayName}}</a></li> -->
+          <a class="navbar-brand" ui-sref="home" style="padding-top: 25px; margin-bottom: 15px;">
+            <strong style="color: white;">meme-hub</strong>
+            <md-tooltip md-direction="bottom">
+              Home
+            </md-tooltip>
+          </a>
+
+          <ul class="nav navbar-nav navbar-right" ng-if="!isAuthenticated()">
+            <li>
+              <button class="btn btn-primary signing-buttons" style="background: #ff4c4c;" ui-sref="login">
+                <strong>Sign in</strong>
+              </button>
+            </li>
+            <li>
+              <button class="btn btn-primary signing-buttons" style="background: #528B8B;" ui-sref="register">
+                <strong>Sign up</strong>
+              </button>
+            </li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right" ng-if="isAuthenticated()">
+            <!-- <li><a>hi {{$storage.currentUser.displayName}}</a></li> -->
 
 
 
-          <!-- Single button -->
+            <!-- Single button -->
             <li class="btn-group nav-buttons">
-                <button class="btn btn-success-outline dropdown-toggle" data-toggle="dropdown" style="background:#222222; color:white">
-                  <img ng-src="{{$storage.currentUser.picture || 'http://cdn1.thelittlenews.com/wp-content/uploads/2015/09/wallpaper-for-facebook-profile-photo-450x400.jpg'}}" class="menu-pic">
-                  <span><strong>{{$storage.currentUser.displayName}}</strong></span>
-                  <span class="caret"></span>
-                </button>
+              <button class="btn btn-success-outline dropdown-toggle" data-toggle="dropdown" style="background:#222222; color:white">
+                <img ng-src="{{$storage.currentUser.picture || 'http://cdn1.thelittlenews.com/wp-content/uploads/2015/09/wallpaper-for-facebook-profile-photo-450x400.jpg'}}" class="menu-pic">
+                <span><strong>{{$storage.currentUser.displayName}}</strong></span>
+                <span class="caret"></span>
+              </button>
 
 
               <ul class="dropdown-menu">
@@ -118,9 +122,11 @@
 
 
 
-          <!-- <li><a role="button" ng-click="logout()">Log out</a></li> -->
-          <!-- <li class="nav-buttons"><button class="btn btn-success" style="margin-top: 10px;" ui-sref="upload">Upload</button></li> -->
-        </ul>
+            <!-- <li><a role="button" ng-click="logout()">Log out</a></li> -->
+            <!-- <li class="nav-buttons"><button class="btn btn-success" style="margin-top: 10px;" ui-sref="upload">Upload</button></li> -->
+          </ul>
+        </div>
+
 
 
       </div>

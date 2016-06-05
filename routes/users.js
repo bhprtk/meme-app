@@ -59,6 +59,15 @@ router.post('/profilePic', upload.single('newFile'), (req, res) => {
 
 });
 
+router.post('/addComment/:userId', (req, res) => {
+
+  User.addComment(req.params.userId, req.body.imageId, (err, savedUser) => {
+    if(err) res.status(400).send(err);
+
+    res.send(savedUser);
+  })
+})
+
 router.put('/addUpvote/:userId', (req, res) => {
 
   User.addLikedPost(req.params.userId, req.body.imageId, (err, savedUser) => {

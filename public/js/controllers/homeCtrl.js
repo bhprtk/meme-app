@@ -6,6 +6,9 @@ app.controller('homeCtrl', function($scope, $state, images, Images, $sessionStor
 
 
   $scope.images = images.reverse();
+  $scope.showComments = false;
+  $scope.newComment = {};
+
 
   $scope.images.forEach(image => {
     if($sessionStorage.currentUser) {
@@ -23,7 +26,49 @@ app.controller('homeCtrl', function($scope, $state, images, Images, $sessionStor
       image.upvoteClass = null;
       image.downvoteClass = null;
     }
+    image.showComments = false;
+    image.commentClass = null;
   });
+
+
+  $scope.submitComment = function(image, imagesIndex) {
+    var comment = {
+      comment: $scope.newComment.comment,
+      commentedBy: $sessionStorage.currentUser._id
+    }
+    Images.addComment(image._id, comment)
+      .then(res => {
+        console.log('res after comment', res);
+        Images.getComments(res.data._id)
+          .then(res => {
+            image.comments = res.data.reverse();
+            $scope.newComment.comment = null;
+          });
+        Users.addComment($sessionStorage.currentUser._id, res.data._id)
+          .then(res => {
+            $sessionStorage.currentUser = res.data;
+          });
+      });
+
+  }
+
+
+  $scope.comments = function(image, imagesIndex) {
+    if(!image.commentClass) {
+      image.commentClass = 'turn-red';
+      image.showComments = true;
+      Images.getComments(image._id)
+        .then(res => {
+          image.comments = res.data.reverse();
+        })
+        .catch(err => {
+          console.log('err after getComments', err);
+        })
+    } else {
+      image.commentClass = null;
+      image.showComments = false;
+    }
+  }
 
   $scope.removePost = function(image) {
     var confirm = $mdDialog.confirm()
@@ -34,7 +79,6 @@ app.controller('homeCtrl', function($scope, $state, images, Images, $sessionStor
       .then(function() {
         Images.deletePost(image._id)
           .then(res => {
-            console.log('res after delete', res);
             Users.deletePost($sessionStorage.currentUser._id, image._id)
               .then(res => {
                 $sessionStorage.currentUser = res.data;
@@ -58,6 +102,7 @@ app.controller('homeCtrl', function($scope, $state, images, Images, $sessionStor
       $state.go('login');
 
     } else {
+
       if(!image.upvoteClass && !image.downvoteClass) {//
         // Images.upvoteById
         // Users.addUpvote

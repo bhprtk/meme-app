@@ -53,6 +53,12 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
       templateUrl: '/html/settings.html',
       controller: 'settingsCtrl'
     })
+    .state('comments', {
+      url: '/comments',
+      params: {image: null},
+      templateUrl: '/html/comments.html',
+      controller: 'commentsCtrl'
+    })
     .state('profile.home', {
       url: '/profile.home/:get',
       templateUrl: '/html/home.html',

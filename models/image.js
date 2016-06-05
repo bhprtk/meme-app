@@ -13,12 +13,27 @@ let imageSchema = new mongoose.Schema({
   url: { type: String, required: true },
   name: { type: String, required: true },
   displayTitle: { type: String },
-  points: { type: Number, default: 0 }
+  points: { type: Number, default: 0 },
+  comments: [{
+    comment: String,
+    commentedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
+  }]
 },
   {
     timestamps: true
   }
 );
+
+
+imageSchema.statics.addComment = function(imageId, comment, cb) {
+  
+  Image.findById(imageId, (err, dbImage) => {
+    dbImage.comments.push(comment);
+    dbImage.save((err, savedImage) => {
+      cb(err, savedImage);
+    })
+  })
+}
 
 
 imageSchema.statics.uploadImageWithUrl = function(imageInfo, cb) {
@@ -28,8 +43,6 @@ imageSchema.statics.uploadImageWithUrl = function(imageInfo, cb) {
     name: imageInfo.displayTitle,
     displayTitle: imageInfo.displayTitle
   }, cb);
-
-
 
 };
 

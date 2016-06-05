@@ -11,13 +11,23 @@ let upload = multer({
   }
 });
 
-let Image = require('../models/image');
+var Image = require('../models/image');
+var User = require('../models/user');
 
 router.get('/getAll', (req, res) => {
   Image.find({}, (err, images) => {
     res.status(err ? 400 : 200).send(err || images);
   });
 });
+
+router.get('/getComments/:imageId', (req, res) => {
+  Image.findById(req.params.imageId, (err, image) => {
+    if(err) res.status(400).send(err);
+
+    res.send(image.comments);
+
+  }).populate('comments.commentedBy');
+})
 
 
 router.post('/', upload.single('newFile'), (req, res) => {
@@ -34,6 +44,15 @@ router.post('/', upload.single('newFile'), (req, res) => {
     });
   }
 
+});
+
+router.post('/addComment/:imageId', (req, res) => {
+
+  Image.addComment(req.params.imageId, req.body, (err, savedImage) => {
+    if(err) res.status(400).send(err);
+
+    res.send(savedImage);
+  })
 });
 
 router.put('/upvoteById/:postId', (req, res) => {

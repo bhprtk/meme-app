@@ -4,61 +4,94 @@
 
 <div class="col-md-7 col-xs-12">
 
-  <div ng-repeat="image in images" >
+<div ng-repeat="image in images">
 
-    <md-card class="image-card">
+  <md-card class="image-card">
 
-      <md-card-header>
+    <md-card-header>
 
-        <h4><strong>{{image.displayTitle}}</strong></h4>
+      <h4><strong>{{image.displayTitle}}</strong></h4>
 
-      </md-card-header>
+    </md-card-header>
 
-      <img ng-src="{{image.url}}" class="md-card-image">
-
-
-      <md-card-footer layout="row" layout-align="space-between center">
+    <img ng-src="{{image.url}}" class="md-card-image">
 
 
-        <div>
-          <span ng-hide="image.points===1"><strong>{{image.points}} points</strong></span>
-          <span ng-show="image.points===1"><strong>{{image.points}} point</strong></span>
-          <span ng-show="image.points===0"><small><i>(be the first person to vote)</i></small></span>
-
-        </div>
-
-        <div>
-
-          <button class="btn btn-default fa-thumbs" ng-show='images.isUploaded' ng-click="removePost(image)">
-            <i class="fa fa-trash-o fa-2x" style="color: #999900"></i>
-            <md-tooltip md-direction="bottom">
-              Delete
-            </md-tooltip>
-          </button>
+    <md-card-footer layout="row" layout-align="space-between center">
 
 
-          <button title="Upvote" class="btn btn-default fa-thumbs" ng-click="upvote(image, $index)">
-            <i class="fa fa-thumbs-o-up fa-2x" ng-class="image.upvoteClass"></i>
-            <md-tooltip md-direction="bottom">
-              Upvote
-            </md-tooltip>
-          </button>
-          <button class="btn btn-default fa-thumbs" ng-click="downvote(image, $index)">
-            <i class="fa fa-thumbs-o-down fa-2x" ng-class="image.downvoteClass"></i>
-            <md-tooltip md-direction="bottom">
-              Downvote
-            </md-tooltip>
-          </button>
+      <div>
+        <span ng-hide="image.points===1"><strong>{{image.points}} points</strong></span>
+        <span ng-show="image.points===1"><strong>{{image.points}} point</strong></span>
+        <!-- <span ng-show="image.points===0"><small><i>(be the first person to vote)</i></small></span> -->
+        <span ng-hide="image.comments.length===1">. {{image.comments.length}} comments</span>
+        <span ng-show="image.comments.length===1">. {{image.comments.length}} comment</span>
 
-        </div>
+      </div>
 
-      </md-card-footer>
+      <div>
+
+        <button class="btn btn-default fa-thumbs" ng-show='images.isUploaded' ng-click="removePost(image)">
+          <i class="fa fa-trash-o fa-2x" style="color: #999900"></i>
+          <md-tooltip md-direction="bottom">
+            Delete
+          </md-tooltip>
+        </button>
+
+        <button class="btn btn-default fa-thumbs" ng-click="comments(image, $index)">
+          <i class="fa fa-comment-o fa-2x" ng-class="image.commentClass"></i>
+          <md-tooltip md-direction="bottom">
+            Comment
+          </md-tooltip>
+        </button>
 
 
-    </md-card>
+        <button class="btn btn-default fa-thumbs" ng-click="upvote(image, $index)">
+          <i class="fa fa-thumbs-o-up fa-2x" ng-class="image.upvoteClass"></i>
+          <md-tooltip md-direction="bottom">
+            Upvote
+          </md-tooltip>
+        </button>
+        <button class="btn btn-default fa-thumbs" ng-click="downvote(image, $index)">
+          <i class="fa fa-thumbs-o-down fa-2x" ng-class="image.downvoteClass"></i>
+          <md-tooltip md-direction="bottom">
+            Downvote
+          </md-tooltip>
+        </button>
 
-  </div>
-  </div>
+      </div>
+
+
+    </md-card-footer>
+
+    <div ng-show="image.showComments">
+      <hr style="margin-top: -5px;">
+
+      <form ng-submit="submitComment(image, $index)">
+        <md-input-container class="comment-input">
+          <label>Add a comment</label>
+          <input type="text" ng-model="newComment.comment" required>
+        </md-input-container>
+      </form>
+      <div>
+        <md-list class="fixedRows" style="margin-top: -20px;">
+           <md-subheader class="md-no-sticky"><strong>Comments</strong></md-subheader>
+           <md-list-item class="md-2-line contact-item" ng-repeat="comment in image.comments">
+             <img ng-src="{{comment.commentedBy.picture || 'http://cdn1.thelittlenews.com/wp-content/uploads/2015/09/wallpaper-for-facebook-profile-photo-450x400.jpg'}}"
+             class="md-avatar"/>
+             <div class="md-list-item-text compact">
+               <h3>{{comment.commentedBy.displayName}}</h3>
+               <p>{{comment.comment}}</p>
+             </div>
+           </md-list-item>
+         </md-list>
+      </div>
+    </div>
+
+  </md-card>
+
+</div>
+</div>
 
 
 <div class="col-md-2 col-xs-2">
@@ -68,6 +101,5 @@
     <md-tooltip md-direction="bottom">
       Upload
     </md-tooltip>
-    <!-- <md-icon md-svg-src="img/icons/android.svg"></md-icon> -->
   </md-button>
 </div>

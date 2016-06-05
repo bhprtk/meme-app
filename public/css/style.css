@@ -128,3 +128,13 @@ body {
 .nav-tabs>li>a:hover {
     background: #bedff6;
 }
+
+.comment-input {
+  width: 100%;
+  margin-left: 10px;
+  padding-right: 20px;
+}
+
+/*@media (max-width: 728px) {
+
+ }*/

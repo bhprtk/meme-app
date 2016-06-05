@@ -66,6 +66,8 @@ app.service('Users', function($http, $sessionStorage) {
 
     this.deletePost = (userId, imageId) => $http.delete(`/users/removePost/${userId}?imageId=${imageId}`);
 
+    this.addComment = (userId, imageId) => $http.post(`/users/addComment/${userId}`, {imageId: imageId});
+
 });
 
 app.service('Images', function($http) {
@@ -77,5 +79,9 @@ app.service('Images', function($http) {
     this.downvoteById = (postId) => $http.put(`/images/downvoteById/${postId}`);
 
     this.deletePost = (postId) => $http.delete(`/images/deleteById/${postId}`);
+
+    this.addComment = (imageId, comment) => $http.post(`/images/addComment/${imageId}`, comment);
+
+    this.getComments = (imageId) => $http.get(`/images/getComments/${imageId}`);
 
 });

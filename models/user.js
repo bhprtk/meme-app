@@ -28,17 +28,28 @@ var userSchema = new mongoose.Schema({
   posted: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Image' }],
   liked: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Image' }],
   disliked: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Image' }],
+  commented: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Image' }],
   facebook: String,
   github: String
 });
 
 
+userSchema.statics.addComment = function(userId, imageId, cb) {
+  User.findById(userId, (err, dbUser) => {
+    if(dbUser.commented.indexOf(imageId) < 0) {
+      dbUser.commented.push(imageId);
+      dbUser.save((err, savedUser) => {
+        cb(err, savedUser);
+      });
+    }
+  });
+};
+
+
 userSchema.statics.removePost = function(userId, imageId, cb) {
-  console.log('imageId', imageId);
   User.findById(userId, (err, dbUser) => {
     if(err) cb(err);
 
-  console.log('dbUser.posted before filter', dbUser.posted);
 
     dbUser.posted = dbUser.posted.filter(function(post) {
       return post.toString() !== imageId;
