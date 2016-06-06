@@ -84,8 +84,19 @@
         <img class="md-card-image" ngf-src="file">
 
         <md-card-footer ng-show="showFooter" layout="row" layout-align="space-around center">
-          <button class="btn btn-danger footer-btn" style="margin-right: 10px;" ng-click="cancelPost()"><h4>Cancel</h4></button>
-          <button class="btn btn-info footer-btn" ng-click="upload()"><h4>Post</h4></button>
+          <button class="btn btn-danger footer-btn" style="margin-right: 10px;" ng-click="cancelPost()" ng-disabled="loading">
+            <h4>Cancel</h4>
+          </button>
+          <button class="btn btn-info footer-btn" ng-click="upload()" ng-disabled="loading">
+            <h4>
+              <span ng-hide="loading">Post</span>
+              <span class="spinner" ng-show="loading">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+              </span>
+            </h4>
+          </button>
         </md-card-footer>
 
       </md-card>

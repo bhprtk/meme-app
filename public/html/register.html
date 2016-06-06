@@ -49,7 +49,14 @@
       </md-input-container>
       <br>
       <br>
-      <button type="submit" class="btn btn-success btn-block btn-social"><span class="fa fa-envelope-o"></span>Sign up with Email</button>
+      <button type="submit" class="btn btn-success btn-block btn-social" ng-disabled="loading">
+        <span class="fa fa-envelope-o"></span>Sign up with Email
+        <span class="spinner" ng-show="loading">
+          <div class="bounce1"></div>
+          <div class="bounce2"></div>
+          <div class="bounce3"></div>
+        </span>
+      </button>
       <br>
       <p>Already have an account? <span><a ui-sref="login">Sign in</a></span></p>
     </form>

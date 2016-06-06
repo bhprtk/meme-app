@@ -5,6 +5,7 @@ var app = angular.module('memeApp');
 app.controller('loginCtrl', function($scope, $auth, $sessionStorage, $http, $state, $stateParams, Users, $timeout) {
 
   $scope.loginUser = {};
+  $scope.loading = false;
 
   $scope.dismissAlert = () => {
     $scope.showAlert = false;
@@ -12,6 +13,7 @@ app.controller('loginCtrl', function($scope, $auth, $sessionStorage, $http, $sta
   };
 
   $scope.login = function() {
+    $scope.loading = true;
 
     $auth.login($scope.loginUser)
       .then(res => {
@@ -19,12 +21,14 @@ app.controller('loginCtrl', function($scope, $auth, $sessionStorage, $http, $sta
         Users.getCurrentUser(email)
           .then(res => {
             $sessionStorage.currentUser = res.data;
+            $scope.loading = false;
 
             $state.go('home');
           })
         })
         .catch(err => {
           $timeout(function() {
+            $scope.loading = false;
             $scope.error = err.data.message;
             $scope.showAlert = true;
           }, 1000);

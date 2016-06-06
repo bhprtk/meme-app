@@ -3,7 +3,8 @@
 var app = angular.module('memeApp');
 
 app.controller('registerCtrl', function($scope, $auth, $timeout) {
-  console.log('registerCtrl');
+
+  $scope.loading = false;
 
   $scope.dismissAlert = () => {
     $scope.showAlert = false;
@@ -13,9 +14,12 @@ app.controller('registerCtrl', function($scope, $auth, $timeout) {
 
   $scope.register = () => {
 
+    $scope.loading = true;
+
     if($scope.newUser.password !== $scope.newUser.password2) {
       $scope.error = "Password mismatch"
       $scope.showAlert = true;
+      $scope.loading = false;
       $timeout($scope.dismissAlert, 2000);
     } else {
 
@@ -28,10 +32,12 @@ app.controller('registerCtrl', function($scope, $auth, $timeout) {
       $auth.signup(newUser)
         .then(res => {
           $scope.showSuccess = true;
+          $scope.loading = false;
         })
         .catch(err => {
           $scope.error = err.data.message;
           $scope.showAlert = true;
+          $scope.loading = false;
           $timeout($scope.dismissAlert, 2000);
         });
     }

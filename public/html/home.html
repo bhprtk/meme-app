@@ -24,8 +24,8 @@
         <span ng-hide="image.points===1"><strong>{{image.points}} points</strong></span>
         <span ng-show="image.points===1"><strong>{{image.points}} point</strong></span>
         <!-- <span ng-show="image.points===0"><small><i>(be the first person to vote)</i></small></span> -->
-        <span ng-hide="image.comments.length===1">. {{image.comments.length}} comments</span>
-        <span ng-show="image.comments.length===1">. {{image.comments.length}} comment</span>
+        <span ng-hide="image.comments.length===1">&middot; {{image.comments.length}} comments</span>
+        <span ng-show="image.comments.length===1">&middot; {{image.comments.length}} comment</span>
 
       </div>
 
