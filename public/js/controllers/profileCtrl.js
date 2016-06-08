@@ -5,6 +5,7 @@ var app = angular.module('memeApp');
 app.controller('profileCtrl', function($scope, $state, $sessionStorage, Users) {
 
   $scope.currentUser = $sessionStorage.currentUser;
+  $scope.likedActive = "currentTab";
 
   $scope.$watch(function() {return $sessionStorage.currentUser}, function(newVal, oldVal) {
     $scope.currentUser = newVal;

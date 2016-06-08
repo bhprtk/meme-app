@@ -201,8 +201,8 @@ userSchema.statics.removeFromDisliked = function(userId, imageId, cb) {
 
 userSchema.statics.createJWT = function(user) {
   var token = jwt.sign({
-    _id: this._id,
-    exp: moment().add(1, 'day').unix() // in seconds
+    _id: this._id
+    // exp: moment().add(1, 'day').unix() // in seconds
   }, JWT_SECRET);
   return token;
 }
