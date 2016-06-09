@@ -10,6 +10,8 @@ app.service('Users', function($http, $sessionStorage) {
 
     this.getCurrentUser = (email) => $http.get(`/users/getCurrentUser/${email}`);
 
+    this.getUserById = (userId) => $http.get(`/users/getUserById/${userId}`);
+
     this.addUpvoteToUser = (imageId, userId) => {
 
         return $http.put(`/users/addUpvote/${userId}`, {

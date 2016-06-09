@@ -27,6 +27,14 @@ router.get('/getCurrentUser/:email', (req, res) => {
 
 });
 
+router.get('/getUserById/:userId', (req, res) => {
+  User.findById(req.params.userId, (err, user) => {
+    if(err) res.status(400).send(err);
+
+    res.send(user);
+  }).select('-password');
+});
+
 router.get('/getLikedPosts/:userId', (req, res) => {
   User.findById(req.params.userId, (err, likedPosts) => {
     if(err) res.status(400).send(err);

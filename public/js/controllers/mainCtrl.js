@@ -2,8 +2,14 @@
 
 var app = angular.module('memeApp');
 
-app.controller('mainCtrl', function($scope, $auth, $state, $sessionStorage) {
+app.controller('mainCtrl', function($scope, $auth, $state, $sessionStorage, Users) {
 
+  if(!$sessionStorage.currentUser && $auth.isAuthenticated()) {
+    Users.getUserById($auth.getPayload().userId)
+      .then(res => {
+        $sessionStorage.currentUser = res.data;
+      })
+  }
 
   $scope.$storage = $sessionStorage;
 
