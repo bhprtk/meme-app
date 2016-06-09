@@ -23,7 +23,7 @@ app.controller('loginCtrl', function($scope, $auth, $sessionStorage, $http, $sta
             $sessionStorage.currentUser = res.data;
             $scope.loading = false;
 
-            $state.go('home');
+            $state.go('home', {}, {reload: true});
           })
         })
         .catch(err => {

@@ -2,7 +2,7 @@
 
 var app = angular.module('memeApp');
 
-app.controller('homeCtrl', function($scope, $state, images, Images, $sessionStorage, Users, $mdDialog) {
+app.controller('homeCtrl', function($scope, $state, images, Images, $sessionStorage, Users, $mdDialog, $mdMedia) {
 
 
   $scope.images = images.reverse();
@@ -72,7 +72,7 @@ app.controller('homeCtrl', function($scope, $state, images, Images, $sessionStor
         image.commentClass = null;
         image.showComments = false;
       }
-      
+
     }
   }
 
@@ -94,9 +94,11 @@ app.controller('homeCtrl', function($scope, $state, images, Images, $sessionStor
       });
   };
 
+
   $scope.isLoggedIn = function() {
     if($sessionStorage.currentUser) {
       $state.go('upload');
+
     } else {
       $state.go('login');
     }
