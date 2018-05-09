@@ -2,7 +2,7 @@
 Share memes with your friends.
 
 ## Build Status
-[![Build Status](https://travis-ci.org/bhprtk/somethingFinder.svg?branch=master)](https://travis-ci.org/bhprtk/somethingFinder)
+[![Build Status](https://travis-ci.org/bhprtk/meme-app.svg?branch=master)](https://travis-ci.org/bhprtk/meme-app)
 
 ## Installing
 
