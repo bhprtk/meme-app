@@ -1,4 +1,4 @@
-# 😂 Meme Hub
+# Meme Hub
 
 **Meme Hub** is a full-stack web application that lets users upload, share, and explore memes. Built with AngularJS 1.5 on the frontend and Node.js/Express on the backend, it features secure authentication and cloud storage integration for a smooth meme-sharing experience.
 
