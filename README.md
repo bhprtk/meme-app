@@ -1,38 +1,66 @@
-# Meme Hub
-Share memes with your friends.
+# 😂 Meme Hub
 
-## Build Status
-[![Build Status](https://travis-ci.org/bhprtk/meme-app.svg?branch=master)](https://travis-ci.org/bhprtk/meme-app)
+**Meme Hub** is a full-stack web application that lets users upload, share, and explore memes. Built with AngularJS 1.5 on the frontend and Node.js/Express on the backend, it features secure authentication and cloud storage integration for a smooth meme-sharing experience.
 
-## Installing
+---
 
-```sh
-git clone https://github.com/bhprtk/meme-app
-```
-```sh
+## 🚀 Features
+
+- Upload and browse memes
+- Email/password authentication using **bcrypt**
+- OAuth login via **Facebook** and **GitHub**
+- Image storage with **AWS S3**
+- Server-side rendering with **EJS**
+- Deployed on **Heroku**
+
+---
+
+## 🛠 Tech Stack
+
+- **Frontend:** AngularJS 1.5  
+- **Backend:** Node.js, Express  
+- **Database:** MongoDB  
+- **Storage:** AWS S3  
+- **Authentication:** bcrypt, OAuth (Facebook, GitHub)  
+- **Templating:** EJS  
+- **Deployment:** Heroku  
+
+---
+
+## 📦 Installation
+
+```bash
+git clone https://github.com/bhprtk/meme-app.git
+cd meme-app
 npm install
 ```
 
-## Usage
-To run the dev environment just use the following command
-```sh
+---
+
+## ⚙️ Usage
+
+To start the development server:
+
+```bash
 npm start
 ```
 
-## Built With
-* Angular 1.5
-* NodeJS
-* Express
-* MongoDB
-* AWS S3
-* Heroku
+Then open your browser and go to:
 
-## License
-[MIT](LICENSE) © [bhprtk](https://github.com/bhprtk)
+```
+http://localhost:3000
+```
 
+---
 
+## 📄 License
 
+This project is licensed under the MIT License.
 
+---
 
+## 👤 Author
 
+Built by [Pratik Bhandari](https://bhprtk.com)
 
+---
