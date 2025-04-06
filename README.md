@@ -7,6 +7,7 @@
 ## 🚀 Features
 
 - Upload and browse memes
+- Like and comment on meme posts
 - Email/password authentication using **bcrypt**
 - OAuth login via **Facebook** and **GitHub**
 - Image storage with **AWS S3**
